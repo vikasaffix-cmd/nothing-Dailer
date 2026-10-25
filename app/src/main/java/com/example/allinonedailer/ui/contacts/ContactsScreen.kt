@@ -67,6 +67,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -285,7 +286,7 @@ fun ContactsScreen(
                     when (row) {
                         is ContactRowModel.Header -> DotMatrixText(
                             text = row.letter,
-                            pitch = 2.2.dp,
+                            pitch = 3.dp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier
                                 .alpha(dim)
@@ -477,12 +478,18 @@ private fun FastScroller(
     var selected by remember { mutableIntStateOf(-1) }
     val density = LocalDensity.current
 
+    // The gesture handler outlives list reloads, so it reads the latest sections.
+    val currentSections by rememberUpdatedState(sections)
+    val currentOnSelected by rememberUpdatedState(onSectionSelected)
+
     fun select(y: Float) {
+        val count = currentSections.size
+        if (count == 0) return
         touchY = y.coerceIn(0f, railHeight.toFloat())
-        val index = ((touchY / railHeight) * sections.size).toInt().coerceIn(0, sections.lastIndex)
+        val index = ((touchY / railHeight) * count).toInt().coerceIn(0, count - 1)
         if (index != selected) {
             selected = index
-            onSectionSelected(index)
+            currentOnSelected(index)
         }
     }
 
@@ -495,21 +502,24 @@ private fun FastScroller(
                 .clip(RoundedCornerShape(50))
                 .background(Color(0xFF111111))
                 .onSizeChanged { railHeight = it.height.coerceAtLeast(1) }
-                .pointerInput(sections) {
+                .pointerInput(Unit) {
                     // One gesture covers both tap and drag: follow the finger until it lifts.
                     awaitEachGesture {
                         val down = awaitFirstDown()
                         down.consume()
                         dragging = true
                         selected = -1
-                        select(down.position.y)
-                        while (true) {
-                            val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id } ?: break
-                            if (!change.pressed) break
-                            change.consume()
-                            select(change.position.y)
+                        try {
+                            select(down.position.y)
+                            while (true) {
+                                val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id } ?: break
+                                if (!change.pressed) break
+                                change.consume()
+                                select(change.position.y)
+                            }
+                        } finally {
+                            dragging = false
                         }
-                        dragging = false
                     }
                 }
                 .padding(vertical = 10.dp),
