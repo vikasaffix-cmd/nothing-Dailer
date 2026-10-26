@@ -118,9 +118,8 @@ import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 import com.example.allinonedailer.R
 import androidx.compose.ui.res.stringResource
+import com.example.allinonedailer.ui.theme.DialerTheme
 
-private val SheetPanel = Color(0xFF1E1F21)
-private val SheetPill = Color(0xFF2C2D30)
 
 @Composable
 fun ContactsScreen(
@@ -502,7 +501,7 @@ private fun ContactRow(
                 size = 42.dp,
                 photoUri = contact.photoUri,
                 pill = true,
-                modifier = if (highlighted) Modifier.border(2.dp, Color.White, RoundedCornerShape(50)) else Modifier
+                modifier = if (highlighted) Modifier.border(2.dp, DialerTheme.colors.ink, RoundedCornerShape(50)) else Modifier
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -525,7 +524,7 @@ private fun ContactRow(
                 )
             }
         }
-        HorizontalDivider(thickness = 0.5.dp, color = Color(0xFF262626))
+        HorizontalDivider(thickness = 0.5.dp, color = DialerTheme.colors.hairline)
         popup()
     }
 }
@@ -573,7 +572,7 @@ private fun FastScroller(
                 .fillMaxHeight()
                 .width(22.dp)
                 .clip(RoundedCornerShape(50))
-                .background(Color(0xFF111111))
+                .background(MaterialTheme.colorScheme.surface)
                 .onSizeChanged { railHeight = it.height.coerceAtLeast(1) }
                 .pointerInput(Unit) {
                     // One gesture covers both tap and drag: follow the finger until it lifts.
@@ -636,7 +635,7 @@ private fun FastScroller(
                 Text(
                     text = sections[selected].letter,
                     fontSize = 36.sp,
-                    color = Color.White
+                    color = DialerTheme.colors.ink
                 )
             }
         }
@@ -695,7 +694,7 @@ private fun ContactActionPopup(
                 .width(minOf(screenWidth - 32.dp, 480.dp))
                 .padding(top = 6.dp)
                 .clip(RoundedCornerShape(32.dp))
-                .background(SheetPanel)
+                .background(DialerTheme.colors.panel)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -731,7 +730,7 @@ private fun ContactActionPopup(
             WhatsAppActionRow(
                 number = contact.phoneNumber,
                 contactId = contact.id,
-                pillColor = SheetPill,
+                pillColor = DialerTheme.colors.chip,
                 onAction = onDismiss,
                 modifier = Modifier.fillMaxWidth().padding(top = 14.dp)
             )
@@ -742,7 +741,7 @@ private fun ContactActionPopup(
                 modifier = Modifier.fillMaxWidth().padding(top = 14.dp)
             )
             // Glyph ringing pattern for this person (Nothing phones with Glyph lights on).
-            com.example.allinonedailer.ui.settings.GlyphContactPatternRow(contact.phoneNumber, SheetPill, Modifier.fillMaxWidth().padding(top = 14.dp))
+            com.example.allinonedailer.ui.settings.GlyphContactPatternRow(contact.phoneNumber, DialerTheme.colors.chip, Modifier.fillMaxWidth().padding(top = 14.dp))
             Spacer(modifier = Modifier.height(18.dp))
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
@@ -752,21 +751,21 @@ private fun ContactActionPopup(
                     icon = Icons.Default.ContentCopy,
                     label = stringResource(R.string.copy_number),
                     background = MaterialTheme.colorScheme.tertiary,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onTertiary,
                     onClick = act(onCopy)
                 )
                 SheetRoundButton(
                     icon = Icons.Default.Share,
                     label = stringResource(R.string.share),
-                    background = Color.White,
-                    tint = Color.Black,
+                    background = DialerTheme.colors.answer,
+                    tint = DialerTheme.colors.onAnswer,
                     onClick = act(onShare)
                 )
                 SheetRoundButton(
                     icon = Icons.Default.Edit,
                     label = stringResource(R.string.edit),
                     background = Color.Transparent,
-                    tint = Color.White,
+                    tint = DialerTheme.colors.ink,
                     outlined = true,
                     onClick = act(onEdit)
                 )
@@ -782,12 +781,12 @@ private fun SheetPillButton(icon: ImageVector, label: String, onClick: () -> Uni
         modifier = modifier
             .height(56.dp)
             .clip(RoundedCornerShape(50))
-            .background(SheetPill)
+            .background(DialerTheme.colors.chip)
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(20.dp))
+        Icon(icon, contentDescription = null, tint = DialerTheme.colors.ink, modifier = Modifier.size(20.dp))
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = label,
@@ -795,7 +794,7 @@ private fun SheetPillButton(icon: ImageVector, label: String, onClick: () -> Uni
             fontSize = 15.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = Color.White
+            color = DialerTheme.colors.ink
         )
     }
 }

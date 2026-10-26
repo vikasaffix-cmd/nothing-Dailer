@@ -102,10 +102,10 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 import com.example.allinonedailer.R
 import androidx.compose.ui.res.stringResource
+import com.example.allinonedailer.ui.theme.DialerTheme
+import androidx.compose.material3.MaterialTheme
 
-private val KeyGrey = Color(0xFF262626)
 private val NothingRed = Color(0xFFD71921)
-private val Muted = Color.White.copy(alpha = 0.55f)
 
 private data class Suggestion(
     val name: String?,
@@ -286,7 +286,7 @@ fun DialpadScreen(
                     text = formatForDisplay(numberText),
                     pitch = 5.dp,
                     centered = true,
-                    color = Color.White
+                    color = DialerTheme.colors.ink
                 )
             }
             DropdownMenu(expanded = showNumberMenu, onDismissRequest = { showNumberMenu = false }) {
@@ -334,7 +334,7 @@ fun DialpadScreen(
                     Text(
                         text = it,
                         fontSize = 12.sp,
-                        color = Muted,
+                        color = DialerTheme.colors.muted,
                         modifier = Modifier.padding(bottom = 6.dp)
                     )
                 }
@@ -355,7 +355,7 @@ fun DialpadScreen(
                 Text(
                     text = hint,
                     fontSize = 11.sp,
-                    color = Muted,
+                    color = DialerTheme.colors.muted,
                     maxLines = 1,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -432,19 +432,19 @@ fun DialpadScreen(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         stringResource(R.string.back_to_call),
-                        tint = Color.White
+                        tint = DialerTheme.colors.ink
                     )
                 }
             } else {
                 IconButton(onClick = onOpenRecents) {
-                    Icon(Icons.Default.History, stringResource(R.string.recents_title), tint = Color.White)
+                    Icon(Icons.Default.History, stringResource(R.string.recents_title), tint = DialerTheme.colors.ink)
                 }
             }
             Box(
                 modifier = Modifier
                     .size(callSize)
                     .clip(CircleShape)
-                    .background(Color.White)
+                    .background(DialerTheme.colors.answer)
                     .combinedClickable(
                         onClick = {
                             when {
@@ -467,7 +467,7 @@ fun DialpadScreen(
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.Call, stringResource(R.string.call), tint = Color.Black, modifier = Modifier.size(28.dp))
+                Icon(Icons.Default.Call, stringResource(R.string.call), tint = DialerTheme.colors.onAnswer, modifier = Modifier.size(28.dp))
                 DropdownMenu(expanded = showCallMenu, onDismissRequest = { showCallMenu = false }) {
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.video_call)) },
@@ -490,7 +490,7 @@ fun DialpadScreen(
                 Spacer(modifier = Modifier.size(48.dp))
             } else {
                 IconButton(onClick = onOpenContacts) {
-                    Icon(Icons.Default.ContactPage, stringResource(R.string.contacts_title), tint = Color.White)
+                    Icon(Icons.Default.ContactPage, stringResource(R.string.contacts_title), tint = DialerTheme.colors.ink)
                 }
             }
         }
@@ -541,7 +541,7 @@ fun DialpadScreen(
                         onClick = onOpenSettings,
                         modifier = Modifier.align(Alignment.TopEnd)
                     ) {
-                        Icon(Icons.Default.Settings, stringResource(R.string.settings), tint = Muted)
+                        Icon(Icons.Default.Settings, stringResource(R.string.settings), tint = DialerTheme.colors.muted)
                     }
                 }
             }
@@ -566,7 +566,7 @@ fun DialpadScreen(
                     modifier = Modifier
                         .size(width = 32.dp, height = 3.dp)
                         .clip(RoundedCornerShape(50))
-                        .background(Color.White.copy(alpha = 0.2f))
+                        .background(DialerTheme.colors.ink.copy(alpha = 0.2f))
                 )
             }
 
@@ -624,8 +624,8 @@ private fun DialKey(
             .size(size)
             .clip(CircleShape)
             .then(
-                if (outlined) Modifier.border(1.dp, Color(0xFF2E2E2E), CircleShape)
-                else Modifier.background(KeyGrey)
+                if (outlined) Modifier.border(1.dp, DialerTheme.colors.keyOutline, CircleShape)
+                else Modifier.background(DialerTheme.colors.keyBackground)
             )
             .combinedClickable(
                 onClick = {
@@ -644,11 +644,11 @@ private fun DialKey(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             // Smaller landscape keys get a finer dot pitch so the label and letters still fit.
             val compact = size < 66.dp
-            DotMatrixText(text = label, pitch = if (compact) 2.8.dp else 3.4.dp, color = Color.White)
+            DotMatrixText(text = label, pitch = if (compact) 2.8.dp else 3.4.dp, color = DialerTheme.colors.ink)
             Spacer(modifier = Modifier.height(if (compact) 2.dp else 5.dp))
             when {
-                subIcon != null -> Icon(subIcon, null, tint = Muted, modifier = Modifier.size(12.dp))
-                sub != null -> Text(text = sub, fontSize = 10.sp, letterSpacing = 1.sp, color = Muted)
+                subIcon != null -> Icon(subIcon, null, tint = DialerTheme.colors.muted, modifier = Modifier.size(12.dp))
+                sub != null -> Text(text = sub, fontSize = 10.sp, letterSpacing = 1.sp, color = DialerTheme.colors.muted)
                 else -> Spacer(modifier = Modifier.height(12.dp))
             }
         }
@@ -678,7 +678,7 @@ private fun BackspaceKey(size: Dp, onTap: () -> Unit, onLongPress: () -> Unit) {
             ),
         contentAlignment = Alignment.Center
     ) {
-        Icon(Icons.AutoMirrored.Filled.Backspace, stringResource(R.string.delete), tint = Color.White, modifier = Modifier.size(24.dp))
+        Icon(Icons.AutoMirrored.Filled.Backspace, stringResource(R.string.delete), tint = DialerTheme.colors.onAccent, modifier = Modifier.size(24.dp))
     }
 }
 
@@ -709,14 +709,14 @@ private fun SuggestionRow(suggestion: Suggestion, onPick: () -> Unit, onCall: ()
                     },
                     fontSize = 12.sp,
                     letterSpacing = 1.5.sp,
-                    color = Color.White,
+                    color = DialerTheme.colors.ink,
                     maxLines = 1
                 )
                 if (suggestion.name != null) {
                     Text(
                         text = highlighted(suggestion.number, suggestion.numberHighlight),
                         fontSize = 11.sp,
-                        color = Muted,
+                        color = DialerTheme.colors.muted,
                         maxLines = 1
                     )
                 }
@@ -724,7 +724,7 @@ private fun SuggestionRow(suggestion: Suggestion, onPick: () -> Unit, onCall: ()
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(50))
-                    .background(Color(0xFF2A2A2A))
+                    .background(DialerTheme.colors.chip)
                     .clickable { onCall() }
                     .padding(horizontal = 14.dp, vertical = 5.dp)
             ) {
@@ -733,11 +733,11 @@ private fun SuggestionRow(suggestion: Suggestion, onPick: () -> Unit, onCall: ()
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp,
-                    color = Color.White
+                    color = DialerTheme.colors.ink
                 )
             }
         }
-        HorizontalDivider(color = Color(0xFF161616))
+        HorizontalDivider(color = DialerTheme.colors.divider)
     }
 }
 
@@ -831,7 +831,7 @@ private fun SimToggle(sims: List<SimOption>, selected: SimOption?, onSelect: (Si
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(Color(0xFF1A1A1A))
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(3.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -850,14 +850,14 @@ private fun SimToggle(sims: List<SimOption>, selected: SimOption?, onSelect: (Si
                 ) {
                     Icon(
                         Icons.Default.SimCard, null,
-                        tint = if (on) Color.White else Muted,
+                        tint = if (on) DialerTheme.colors.onAccent else DialerTheme.colors.muted,
                         modifier = Modifier.size(13.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = sim.label,
                         fontSize = 12.sp,
-                        color = if (on) Color.White else Muted,
+                        color = if (on) DialerTheme.colors.onAccent else DialerTheme.colors.muted,
                         maxLines = 1
                     )
                 }

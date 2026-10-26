@@ -36,7 +36,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,12 +52,9 @@ import com.example.allinonedailer.service.tiles.CallFavouriteTileService
 import com.example.allinonedailer.service.tiles.LastCallerTileService
 import com.example.allinonedailer.service.tiles.QuietHoursTileService
 import com.example.allinonedailer.ui.components.DotMatrixText
-import com.example.allinonedailer.ui.theme.NothingRed
+import com.example.allinonedailer.ui.theme.DialerTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
-private val Panel = Color(0xFF1C1C1C)
-private val Pill = Color(0xFF2C2D30)
 
 /**
  * Settings → "Quick Settings tiles": who the "Call favourite" tile calls
@@ -108,16 +104,16 @@ fun QuickTilesSettingsRow() {
                     .fillMaxWidth()
                     .heightIn(max = 600.dp)
                     .clip(RoundedCornerShape(28.dp))
-                    .background(Panel)
+                    .background(DialerTheme.colors.panel)
                     .verticalScroll(rememberScrollState())
                     .padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                DotMatrixText(text = stringResource(R.string.tiles_title).uppercase(), pitch = 3.dp, color = Color.White)
+                DotMatrixText(text = stringResource(R.string.tiles_title).uppercase(), pitch = 3.dp, color = DialerTheme.colors.ink)
                 Text(
                     text = stringResource(R.string.tiles_help),
                     fontSize = 13.sp,
-                    color = Color.White.copy(alpha = 0.6f)
+                    color = DialerTheme.colors.muted
                 )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     TilePill(stringResource(R.string.tiles_add, stringResource(R.string.tile_quiet_hours)), false) {
@@ -135,7 +131,7 @@ fun QuickTilesSettingsRow() {
                     text = stringResource(R.string.tiles_favourite_heading).uppercase(),
                     fontSize = 11.sp,
                     letterSpacing = 1.sp,
-                    color = Color.White.copy(alpha = 0.5f),
+                    color = DialerTheme.colors.muted,
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 TilePill(
@@ -159,7 +155,7 @@ fun QuickTilesSettingsRow() {
                     Text(
                         text = stringResource(R.string.tiles_no_favourites),
                         fontSize = 13.sp,
-                        color = Color.White.copy(alpha = 0.6f)
+                        color = DialerTheme.colors.muted
                     )
                 }
             }
@@ -172,12 +168,12 @@ private fun TilePill(text: String, selected: Boolean, onClick: () -> Unit) {
     Text(
         text = text,
         fontSize = 15.sp,
-        color = Color.White,
+        color = if (selected) DialerTheme.colors.onAccent else DialerTheme.colors.ink,
         maxLines = 1,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(50))
-            .background(if (selected) NothingRed else Pill)
+            .background(if (selected) DialerTheme.colors.accent else DialerTheme.colors.chip)
             .clickable(onClick = onClick)
             .padding(horizontal = 20.dp, vertical = 14.dp)
     )

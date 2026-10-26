@@ -7,6 +7,7 @@ import com.example.allinonedailer.data.CallerCardBuilder
 import com.example.allinonedailer.data.CardDay
 import com.example.allinonedailer.data.ContactEventKind
 import com.example.allinonedailer.data.LastCallKind
+import com.example.allinonedailer.data.ReminderKind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -84,6 +85,14 @@ class CallerCardBuilderTest {
             CallReminder(3, "9111111111", null, now + 10)
         ))!!
         assertEquals(now + hour, card.reminderAt)
+    }
+
+    @Test
+    fun scheduledCallsAreNotCallBackReminders() {
+        val scheduled = CallReminder(1, number, null, now + hour, kind = ReminderKind.SCHEDULED)
+        assertNull(build(reminders = listOf(scheduled)))
+        val callBack = CallReminder(2, number, null, now + 2 * hour)
+        assertEquals(now + 2 * hour, build(reminders = listOf(scheduled, callBack))!!.reminderAt)
     }
 
     @Test

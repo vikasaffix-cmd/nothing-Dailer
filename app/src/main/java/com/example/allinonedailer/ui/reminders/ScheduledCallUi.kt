@@ -45,7 +45,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -62,15 +61,12 @@ import com.example.allinonedailer.data.ReminderRepeat
 import com.example.allinonedailer.data.ReminderScheduler
 import com.example.allinonedailer.data.ReminderTimes
 import com.example.allinonedailer.ui.components.DotMatrixText
-import com.example.allinonedailer.ui.theme.NothingRed
+import com.example.allinonedailer.ui.theme.DialerTheme
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZoneOffset
-
-private val Panel = Color(0xFF1C1C1C)
-private val Pill = Color(0xFF2C2D30)
 
 /** "Tomorrow 18:00" once, "Every day, 18:00" or "Every Tue, 18:00". */
 fun scheduledSummary(context: Context, reminder: CallReminder): String {
@@ -143,14 +139,14 @@ fun ScheduleCallDialog(
                 .widthIn(max = 420.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(28.dp))
-                .background(Panel)
+                .background(DialerTheme.colors.panel)
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            DotMatrixText(text = stringResource(R.string.scheduled_call_schedule).uppercase(), pitch = 3.dp, color = Color.White)
-            Text(text = title, fontSize = 15.sp, color = Color.White, maxLines = 1)
+            DotMatrixText(text = stringResource(R.string.scheduled_call_schedule).uppercase(), pitch = 3.dp, color = DialerTheme.colors.ink)
+            Text(text = title, fontSize = 15.sp, color = DialerTheme.colors.ink, maxLines = 1)
             if (subtitle != null) {
-                Text(text = subtitle, fontSize = 12.sp, color = Color.White.copy(alpha = 0.6f), maxLines = 1)
+                Text(text = subtitle, fontSize = 12.sp, color = DialerTheme.colors.muted, maxLines = 1)
             }
 
             SectionLabel(stringResource(R.string.scheduled_call_day))
@@ -173,11 +169,11 @@ fun ScheduleCallDialog(
                 text = clock(time),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Light,
-                color = Color.White,
+                color = DialerTheme.colors.ink,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(50))
-                    .background(Pill)
+                    .background(DialerTheme.colors.chip)
                     .clickable { pickingTime = true }
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
@@ -198,7 +194,7 @@ fun ScheduleCallDialog(
                 Text(
                     text = stringResource(R.string.cancel),
                     fontSize = 14.sp,
-                    color = Color.White.copy(alpha = 0.7f),
+                    color = DialerTheme.colors.muted,
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
                         .clickable(onClick = onDismiss)
@@ -207,10 +203,10 @@ fun ScheduleCallDialog(
                 Text(
                     text = stringResource(if (initial == null) R.string.scheduled_call_save else R.string.scheduled_call_update),
                     fontSize = 14.sp,
-                    color = Color.White,
+                    color = DialerTheme.colors.onAccent,
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
-                        .background(NothingRed)
+                        .background(DialerTheme.colors.accent)
                         .clickable {
                             val at = ReminderTimes.firstOccurrence(date, time, repeat, System.currentTimeMillis(), zone)
                             if (at == null) {
@@ -275,7 +271,7 @@ private fun SectionLabel(text: String) {
         text = text.uppercase(),
         fontSize = 11.sp,
         letterSpacing = 1.sp,
-        color = Color.White.copy(alpha = 0.5f),
+        color = DialerTheme.colors.muted,
         modifier = Modifier.padding(top = 4.dp)
     )
 }
@@ -285,11 +281,11 @@ private fun Chip(text: String, selected: Boolean, onClick: () -> Unit) {
     Text(
         text = text,
         fontSize = 14.sp,
-        color = Color.White,
+        color = if (selected) DialerTheme.colors.onAccent else DialerTheme.colors.ink,
         maxLines = 1,
         modifier = Modifier
             .clip(RoundedCornerShape(50))
-            .background(if (selected) NothingRed else Pill)
+            .background(if (selected) DialerTheme.colors.accent else DialerTheme.colors.chip)
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 10.dp)
     )
@@ -347,7 +343,7 @@ fun ScheduledCallAlert(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
             .safeDrawingPadding()
             .padding(24.dp)
     ) {
@@ -358,22 +354,22 @@ fun ScheduledCallAlert(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            DotMatrixText(text = stringResource(R.string.scheduled_call_alert_heading).uppercase(), pitch = 4.dp, color = NothingRed)
+            DotMatrixText(text = stringResource(R.string.scheduled_call_alert_heading).uppercase(), pitch = 4.dp, color = DialerTheme.colors.accent)
             Text(
                 text = title,
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Light,
-                color = Color.White,
+                color = DialerTheme.colors.ink,
                 textAlign = TextAlign.Center,
                 maxLines = 2
             )
             if (subtitle != null) {
-                Text(text = subtitle, fontSize = 15.sp, color = Color.White.copy(alpha = 0.6f))
+                Text(text = subtitle, fontSize = 15.sp, color = DialerTheme.colors.muted)
             }
             Text(
                 text = stringResource(R.string.scheduled_call_due, DateFormat.getTimeFormat(context).format(at)),
                 fontSize = 13.sp,
-                color = Color.White.copy(alpha = 0.5f)
+                color = DialerTheme.colors.muted
             )
         }
         Column(
@@ -385,11 +381,11 @@ fun ScheduledCallAlert(
                 modifier = Modifier
                     .size(84.dp)
                     .clip(CircleShape)
-                    .background(NothingRed)
+                    .background(DialerTheme.colors.accent)
                     .clickable(onClick = onCall),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.Call, stringResource(R.string.call), tint = Color.White, modifier = Modifier.size(36.dp))
+                Icon(Icons.Default.Call, stringResource(R.string.call), tint = DialerTheme.colors.onAccent, modifier = Modifier.size(36.dp))
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 AlertPill(stringResource(R.string.scheduled_call_snooze), onSnooze)
@@ -404,10 +400,10 @@ private fun AlertPill(text: String, onClick: () -> Unit) {
     Text(
         text = text,
         fontSize = 15.sp,
-        color = Color.White,
+        color = DialerTheme.colors.ink,
         modifier = Modifier
             .clip(RoundedCornerShape(50))
-            .background(Pill)
+            .background(DialerTheme.colors.chip)
             .clickable(onClick = onClick)
             .padding(horizontal = 24.dp, vertical = 14.dp)
     )
