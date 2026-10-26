@@ -101,6 +101,7 @@ object BackupSpec {
         PrefsFile("call_pill"),
         // "recent_incoming" is short-lived repeat-caller tracking.
         PrefsFile("quiet_hours", deviceOnlyKeys = setOf("recent_incoming")),
+        // Reminders and scheduled calls (whole JSON items are kept, so extra fields survive).
         // Alarms are set again after a restore (BackupManager).
         PrefsFile("call_reminders"),
         // Glyph light patterns, including per-contact ones ("contact_<number key>").
@@ -109,7 +110,9 @@ object BackupSpec {
         PrefsFile("app_theme"),
         PrefsFile("flip_to_silence"),
         // The user's own balance/plan USSD codes per operator or SIM slot.
-        PrefsFile("ussd_codes")
+        PrefsFile("ussd_codes"),
+        // Which favourite the "Call favourite" Quick Settings tile dials.
+        PrefsFile("quick_tiles")
     )
 
     fun file(name: String): PrefsFile? = PREFS.firstOrNull { it.name == name }

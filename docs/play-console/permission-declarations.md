@@ -38,7 +38,7 @@ All of these are under **Play Console → Policy and programs → App content**.
 ## 3. Full-screen intent (USE_FULL_SCREEN_INTENT)
 
 - **Does your app's core functionality include:** ✅ **Receiving calls** (phone or video calls).
-- Note: NoDialer uses the full-screen intent only for the incoming-call notification, so the ringing screen shows when the device is locked or the screen is off.
+- Note: NoDialer uses the full-screen intent for the incoming-call notification, so the ringing screen shows when the device is locked or the screen is off. If the user turns it on in Settings → Reminders, it also shows a full-screen alert at the time of a call the user scheduled. That alert asks the user to unlock before calling.
 
 ---
 

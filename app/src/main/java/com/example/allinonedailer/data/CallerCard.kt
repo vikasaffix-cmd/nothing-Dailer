@@ -81,7 +81,8 @@ object CallerCardBuilder {
             )
         }
         val missed = mine.count { it.callType == CallLog.Calls.MISSED_TYPE && it.date.time >= now - WEEK_MS }
-        val reminder = reminders.filter { CallNoteMatcher.numberKey(it.number) == key }.minByOrNull { it.at }
+        // Call-back reminders only; scheduled calls ("Call Mom at 6 PM") aren't about this ring.
+        val reminder = reminders.filter { !it.scheduled && CallNoteMatcher.numberKey(it.number) == key }.minByOrNull { it.at }
         val todayMd = MonthDay.from(today)
         val eventsToday = events.filter { (_, date) -> parseMonthDay(date) == todayMd }.map { it.first }.distinct()
 
