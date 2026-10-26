@@ -8,12 +8,19 @@
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <!-- Proximity wake lock: screen off while the phone is at your ear -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- Audio & Recording Permissions -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <!-- Bluetooth device names in the in-call audio picker (Android 12+) -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- Voicemail playback through the earpiece. -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <!-- Contacts & Communications -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -21,10 +28,27 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- Call pill: the incoming-call pill over other apps (Settings → Call pill). The user grants it. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- Call-back reminders: exact times when the user allows "Alarms & reminders"
+         (inexact alarms otherwise), and setting them again after a reboot. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- Video calling (camera preview). Optional so the app installs without a camera. -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Glyph lights (service/GlyphController.kt): Nothing's Glyph Matrix SDK. Its AAR asks for
+         minSdk 33; the app only calls it on Android 13+ Nothing phones. -->
+    <uses-permission android:name="com.nothing.ketchum.permission.ENABLE" />
+    <uses-sdk tools:overrideLibrary="com.nothing.thirdparty" />
+
+    <!-- WhatsApp shortcuts: only checks whether WhatsApp / WhatsApp Business is installed. -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -32,15 +56,20 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllinoneDailer">
+
+        <!-- Glyph SDK key. "test" works while Glyph debug mode is on; a real key comes from Nothing. -->
+        <meta-data android:name="NothingKey" android:value="test" />
 
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|uiMode"
             android:showWhenLocked="true"
             android:turnScreenOn="true"
             android:theme="@style/Theme.AllinoneDailer">
@@ -64,6 +93,7 @@
         <service
             android:name=".service.CallService"
             android:exported="true"
+            android:foregroundServiceType="phoneCall"
             android:permission="android.permission.BIND_INCALL_SERVICE">
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
@@ -88,11 +118,119 @@
             android:name=".service.CallActionReceiver"
             android:exported="false" />
 
+        <!-- Inline reply from the post-call "Add a note" notification. -->
+        <receiver
+            android:name=".service.CallNoteReceiver"
+            android:exported="false" />
+
+        <!-- Missed-call notifications, which Telecom leaves to the default dialer.
+             Only Telecom (system) holds MODIFY_PHONE_STATE, so other apps can't fake one. -->
+        <receiver
+            android:name=".service.MissedCallReceiver"
+            android:exported="true"
+            android:permission="android.permission.MODIFY_PHONE_STATE">
+            <intent-filter>
+                <action android:name="android.telecom.action.SHOW_MISSED_CALLS_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
         <!-- Foreground service for call recording -->
         <service
             android:name=".service.CallRecordingService"
             android:exported="false"
             android:foregroundServiceType="microphone|phoneCall" />
+
+        <!-- Shares call recordings with other apps (Recordings screen) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Home-screen widget: favourites and recent calls (widget/) -->
+        <receiver
+            android:name=".widget.DialerWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/dialer_widget_info" />
+        </receiver>
+
+        <!-- Invisible: places the call for a widget tap, then closes -->
+        <activity
+            android:name=".widget.WidgetCallActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- Call-back reminders: fire, snooze, and re-set alarms after reboot / update / clock change -->
+        <receiver
+            android:name=".service.CallReminderReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".service.CallReminderBootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Invisible: the reminder's Call button, and the "Remind me" picker from a missed call -->
+        <activity
+            android:name=".ui.reminders.ReminderActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- Quick Settings tiles: Quiet hours (toggle), Call favourite, Last caller (service/tiles/) -->
+        <service
+            android:name=".service.tiles.QuietHoursTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_tile_quiet_hours"
+            android:label="@string/tile_quiet_hours"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+        <service
+            android:name=".service.tiles.CallFavouriteTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_tile_favourite"
+            android:label="@string/tile_call_favourite"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.tiles.LastCallerTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_tile_last_caller"
+            android:label="@string/tile_last_caller"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
     </application>
 

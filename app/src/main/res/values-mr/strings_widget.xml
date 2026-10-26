@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home-screen widget, Marathi. -->
+<resources>
+    <string name="widget_label">आवडते आणि अलीकडील कॉल</string>
+    <string name="widget_description">तारांकित संपर्क आणि अलीकडील कॉलरना एका टॅपमध्ये कॉल करा</string>
+    <string name="widget_title">आवडते</string>
+    <string name="widget_open_app">NoDialer उघडा</string>
+    <string name="widget_call">%1$s ला कॉल करा</string>
+    <string name="widget_no_favourites">संपर्क इथे ठेवण्यासाठी त्याला तारांकित करा</string>
+    <string name="widget_no_recents">अजून एकही कॉल नाही</string>
+    <string name="widget_needs_permission">परवानगी देण्यासाठी NoDialer उघडा</string>
+    <string name="widget_yesterday">काल</string>
+    <string name="widget_incoming">येणारा</string>
+    <string name="widget_outgoing">जाणारा</string>
+    <string name="widget_missed">चुकलेला</string>
+    <string name="widget_declined">नाकारलेला</string>
+    <string name="widget_preview_name_1">आई</string>
+    <string name="widget_preview_name_2">आरव</string>
+    <string name="widget_preview_name_3">ऑफिस</string>
+</resources>

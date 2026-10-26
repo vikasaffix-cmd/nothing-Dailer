@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget picker preview before Android 12: black card, red dot, four avatars, three call rows. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="250dp"
+    android:height="180dp"
+    android:viewportWidth="250"
+    android:viewportHeight="180">
+    <path android:fillColor="#FF000000"
+        android:pathData="M24,0h202a24,24 0,0 1,24 24v132a24,24 0,0 1,-24 24h-202a24,24 0,0 1,-24 -24v-132a24,24 0,0 1,24 -24z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M14,17h70v6h-70z" />
+    <path android:fillColor="#FFD71921" android:pathData="M232,20m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <path android:fillColor="#FF2A2A2A"
+        android:pathData="M38,58m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0M96,58m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0M154,58m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0M212,58m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0" />
+    <path android:fillColor="#FFD71921" android:pathData="M14,104h10v10h-10zM32,106h90v6h-90z" />
+    <path android:fillColor="#FFB3B3B3" android:pathData="M14,130h10v10h-10zM14,156h10v10h-10z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M32,132h70v6h-70zM32,158h80v6h-80z" />
+    <path android:fillColor="#FF8E8E8E" android:pathData="M206,106h30v6h-30zM206,132h30v6h-30zM206,158h30v6h-30z" />
+</vector>

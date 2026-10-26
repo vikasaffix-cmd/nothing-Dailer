@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- On-device voicemail transcripts and summaries (ui/voicemail/VoicemailTranscriptViews.kt). -->
+<resources>
+    <string name="settings_vm_transcribe">Transcribe voicemails</string>
+    <string name="settings_vm_transcribe_summary">A transcript and a one-line summary for each voicemail, made on the phone. Nothing is uploaded. Needs Android 13 or newer and the offline speech pack for English, Hindi or Marathi; Hindi and Marathi are less accurate.</string>
+
+    <string name="vm_ai_search_hint">Search names, numbers or words</string>
+    <string name="vm_ai_close_search">Close search</string>
+    <string name="vm_ai_no_matches">No voicemails match.</string>
+
+    <string name="vm_ai_transcribing">Transcribing…</string>
+    <string name="vm_ai_transcript">Transcript</string>
+    <string name="vm_ai_not_transcribed">Not transcribed yet.</string>
+    <string name="vm_ai_transcribe">Transcribe</string>
+    <string name="vm_ai_retry">Retry</string>
+    <string name="vm_ai_language_auto">Detect language</string>
+    <string name="vm_ai_add_reminder">Add reminder</string>
+    <string name="vm_ai_reminder_body">Voicemail from %1$s:\n%2$s</string>
+
+    <string name="vm_ai_no_speech">No speech found in this message.</string>
+    <string name="vm_ai_failed">Couldn\'t transcribe this message.</string>
+    <string name="vm_ai_unsupported">Transcripts need Android 13 or newer with on-device speech recognition, which this phone doesn\'t have.</string>
+    <string name="vm_ai_no_language_pack">The offline speech pack for %1$s isn\'t on this phone yet. A download may have started; retry later, or try another language.</string>
+    <string name="vm_ai_needs_mic">Android\'s speech engine needs the microphone permission, even for saved files. Nothing is recorded.</string>
+    <string name="vm_ai_allow">Allow</string>
+</resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="insights_title">आकडेवारी</string>
+    <string name="insights_open">कॉलची आकडेवारी</string>
+    <string name="settings_insights_summary">बोलण्याचा वेळ, मुख्य संपर्क आणि सर्वात व्यस्त तास</string>
+    <string name="insights_range_week">या आठवड्यात</string>
+    <string name="insights_range_month">या महिन्यात</string>
+    <string name="insights_range_custom">तुमच्या तारखा</string>
+    <string name="insights_talk_time">बोलण्याचा वेळ</string>
+    <string name="insights_calls_in">येणारे</string>
+    <string name="insights_calls_out">जाणारे</string>
+    <string name="insights_calls_missed">चुकलेले</string>
+    <string name="insights_missed_rate">चुकलेल्या कॉलचे प्रमाण</string>
+    <string name="insights_missed_rate_value">येणाऱ्यांपैकी %1$d%% कॉल चुकले</string>
+    <string name="insights_per_sim">प्रत्येक SIM वर बोलण्याचा वेळ</string>
+    <string name="insights_other_sim">इतर</string>
+    <string name="insights_top_contacts">मुख्य संपर्क</string>
+    <string name="insights_by_talk">बोलण्याचा वेळ</string>
+    <string name="insights_by_count">कॉल</string>
+    <string name="insights_busiest_hours">सर्वात व्यस्त तास</string>
+    <string name="insights_busiest_at">सर्वात व्यस्त: सुमारे %1$s</string>
+    <string name="insights_longest">सर्वात लांब कॉल</string>
+    <string name="insights_empty">या तारखांमध्ये एकही कॉल नाही</string>
+    <string name="insights_open_recents">संपर्कावर टॅप करून अलीकडील कॉलमध्ये त्यांचे कॉल पहा</string>
+    <string name="insights_pick_dates">तारखा निवडा</string>
+    <string name="insights_apply">लागू करा</string>
+    <plurals name="insights_calls_count">
+        <item quantity="one">%d कॉल</item>
+        <item quantity="other">%d कॉल</item>
+    </plurals>
+
+    <string name="balance_title">बॅलन्स आणि प्लॅन</string>
+    <string name="settings_balance_summary">प्रत्येक SIM साठी ऑपरेटरकडून बॅलन्स, वैधता आणि डेटा</string>
+    <string name="balance_no_sims">एकही चालू SIM सापडले नाही</string>
+    <string name="balance_unconfirmed">अपुष्ट</string>
+    <string name="balance_unconfirmed_note">अपुष्ट कोड अलीकडील मार्गदर्शकांमधून घेतले आहेत, ऑपरेटरच्या स्वतःच्या साइटवरून नाही. एखादा चालला नाही तर तो बदला.</string>
+    <string name="balance_one_tap">एक टॅप</string>
+    <string name="balance_asks_first">आधी विचारते</string>
+    <string name="balance_confirm_title">%1$s पाठवायचा?</string>
+    <string name="balance_confirm_menu">हे ऑपरेटरचा मेन्यू उघडते. त्यातील पर्याय पॅक विकत घेऊ शकतात किंवा प्लॅन बदलू शकतात, म्हणून प्रत्येक पायरी नीट पहा.</string>
+    <string name="balance_confirm_action">हा कोड तुमचा प्लॅन बदलू शकतो किंवा बॅलन्स खर्च करू शकतो. खात्री असेल तरच पाठवा.</string>
+    <string name="balance_send">पाठवा</string>
+    <string name="balance_dial">डायल</string>
+    <string name="balance_dial_hint">कोड कीपॅडवर उघडते, पाठवायचे तुम्ही</string>
+    <string name="balance_sending">%1$s ला विचारत आहे…</string>
+    <string name="balance_reply_from">%1$s चे उत्तर</string>
+    <string name="balance_failed">नेटवर्कने इथे या कोडला उत्तर दिले नाही. डायल वापरून पहा.</string>
+    <string name="balance_timeout">अजून उत्तर नाही. डायल वापरून पहा.</string>
+    <string name="balance_no_permission">कोड पाठवण्यासाठी फोन कॉलची परवानगी द्या.</string>
+    <string name="balance_menu_hint">हा मेन्यू आहे. पर्याय लिहा, तो एका कोडमध्ये पाठवला जाईल.</string>
+    <string name="balance_option">पर्याय</string>
+    <string name="balance_add">कोड जोडा</string>
+    <string name="balance_edit">कोड बदला</string>
+    <string name="balance_name">नाव</string>
+    <string name="balance_code">कोड</string>
+    <string name="balance_code_invalid">कोड * किंवा # ने सुरू होऊन # ने संपतो</string>
+    <string name="balance_info_only">फक्त माहिती दाखवते (एका टॅपमध्ये पाठवा)</string>
+    <string name="balance_info_only_help">विकत घेणाऱ्या, रिचार्ज करणाऱ्या किंवा प्लॅन बदलणाऱ्या कोडसाठी हे बंद ठेवा.</string>
+    <string name="balance_save">जतन करा</string>
+    <string name="balance_close">बंद करा</string>
+    <string name="balance_reset">मूळ कोड परत आणा</string>
+    <string name="balance_code_main">बॅलन्स आणि वैधता</string>
+    <string name="balance_code_number">माझा नंबर</string>
+    <string name="balance_code_data">डेटा बॅलन्स</string>
+    <string name="balance_code_plan">प्लॅन आणि वैधता</string>
+    <string name="balance_code_offers">ऑफर मेन्यू</string>
+</resources>

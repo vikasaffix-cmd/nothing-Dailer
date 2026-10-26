@@ -22,6 +22,9 @@ class RecordingRepository(private val context: Context) {
     companion object {
         private const val KEY_AUTO_RECORD = "auto_record_enabled"
         private const val KEY_RECORDINGS_LIST = "recordings_list_json"
+
+        @Volatile
+        private var parsed: Pair<String, List<RecordingItem>>? = null
     }
 
     fun isAutoRecordEnabled(): Boolean {
@@ -42,12 +45,16 @@ class RecordingRepository(private val context: Context) {
 
     fun getRecordings(): List<RecordingItem> {
         val json = prefs.getString(KEY_RECORDINGS_LIST, null) ?: return emptyList()
+        // Parsed once per saved list; SharedPreferences hands back the same string until it changes.
+        parsed?.let { (source, list) -> if (source === json || source == json) return list }
         val type = object : TypeToken<List<RecordingItem>>() {}.type
-        return try {
+        val list: List<RecordingItem> = try {
             gson.fromJson(json, type) ?: emptyList()
         } catch (e: Exception) {
             emptyList()
         }
+        parsed = json to list
+        return list
     }
 
     fun getRecordingForCall(phoneNumber: String, timestampMs: Long): RecordingItem? {

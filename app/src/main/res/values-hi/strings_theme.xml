@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_theme">थीम</string>
+    <string name="settings_theme_summary">डार्क Nothing वाला रूप है। संपर्क फ़ोटो वाली इनकमिंग कॉल स्क्रीन हमेशा डार्क रहती है।</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="theme_light">लाइट</string>
+    <string name="theme_system">सिस्टम के अनुसार</string>
+</resources>

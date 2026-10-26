@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Scheduled calls and Quick Settings tiles. -->
+<resources>
+    <!-- Scheduled calls (ui/reminders/ScheduledCallUi.kt, service/ScheduledCallNotifier.kt) -->
+    <string name="scheduled_call_schedule">Schedule call</string>
+    <string name="scheduled_call_day">Day</string>
+    <string name="scheduled_call_today">Today</string>
+    <string name="scheduled_call_tomorrow">Tomorrow</string>
+    <string name="scheduled_call_other_date">Other date</string>
+    <string name="scheduled_call_time">Time</string>
+    <string name="scheduled_call_repeat">Repeat</string>
+    <string name="scheduled_repeat_once">Once</string>
+    <string name="scheduled_repeat_daily">Daily</string>
+    <string name="scheduled_repeat_weekly">Weekly</string>
+    <string name="scheduled_repeat_daily_summary">Every day, %1$s</string>
+    <string name="scheduled_repeat_weekly_summary">Every %1$s, %2$s</string>
+    <string name="scheduled_call_save">Schedule</string>
+    <string name="scheduled_call_update">Save</string>
+    <string name="scheduled_call_set_for">Call scheduled for %1$s</string>
+    <string name="scheduled_call_cancel">Cancel scheduled call</string>
+    <string name="scheduled_calls_channel">Scheduled calls</string>
+    <string name="scheduled_call_title">Time to call %1$s</string>
+    <string name="scheduled_call_alert_heading">Time to call</string>
+    <string name="scheduled_call_due">Scheduled for %1$s</string>
+    <string name="scheduled_call_snooze">Snooze 10 min</string>
+    <string name="scheduled_call_dismiss">Dismiss</string>
+    <string name="scheduled_full_screen">Full-screen alert</string>
+    <string name="scheduled_full_screen_summary">Scheduled calls fill the screen, like an alarm, even when the phone is locked</string>
+    <string name="scheduled_full_screen_blocked">Full-screen alerts are turned off for this app. Allow them in system settings.</string>
+    <string name="reminders_scheduled_section">Scheduled calls</string>
+    <string name="reminders_callback_section">Call-back reminders</string>
+    <!-- Quick Settings tiles (service/tiles/QuickSettingsTiles.kt, ui/settings/QuickTilesSettings.kt) -->
+    <string name="tile_quiet_hours">Quiet hours</string>
+    <string name="tile_call_favourite">Call favourite</string>
+    <string name="tile_last_caller">Last caller</string>
+    <string name="tile_quiet_schedule">%1$s–%2$s</string>
+    <string name="tile_quiet_follows_dnd">With Do Not Disturb</string>
+    <string name="tile_locked">Unlock to call</string>
+    <string name="tile_no_favourite">No favourite yet</string>
+    <string name="tile_no_calls">No calls yet</string>
+    <string name="tile_needs_contacts">Allow contacts</string>
+    <string name="tile_needs_call_log">Allow call history</string>
+    <string name="tiles_title">Quick Settings tiles</string>
+    <string name="tiles_summary">Call favourite: %1$s</string>
+    <string name="tiles_help">Swipe down twice, tap the pencil and drag NoDialer’s tiles in: Quiet hours, Call favourite and Last caller.</string>
+    <string name="tiles_add">Add “%1$s”</string>
+    <string name="tiles_favourite_heading">Call favourite calls</string>
+    <string name="tiles_favourite_auto">First favourite</string>
+    <string name="tiles_favourite_auto_named">First favourite (%1$s)</string>
+    <string name="tiles_no_favourites">Star a contact to pick it here.</string>
+    <string name="tiles_already_added">That tile is already in Quick Settings</string>
+    <string name="tiles_add_failed">Couldn’t add the tile. Add it from the Quick Settings editor.</string>
+</resources>

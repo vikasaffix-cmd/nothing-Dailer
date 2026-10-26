@@ -1,19 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample data extraction rules file; uncomment and customize as necessary.
-   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
-   for details.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Android Auto Backup, Android 12 and later (backup_rules.xml covers older versions).
+    Backed up: the app's SharedPreferences (blocks and rules, spam reports, caller names,
+    speed dial, call notes, settings) and the custom display font.
+    Not backed up: call recordings (getExternalFilesDir, too big), caches, the widget's
+    draw cache, voicemail transcripts (tied to this phone's folder; re-made on device). The caller-ID lookup URL sits in caller_id_prefs, so cloud backup only
+    runs when it can be end-to-end encrypted (a screen lock is set).
+    Keep this list in step with BackupSpec.PREFS (data/backup/BackupFormat.kt).
 -->
 <data-extraction-rules>
-    <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+    <cloud-backup disableIfNoEncryptionCapabilities="true">
+        <include domain="sharedpref" path="." />
+        <exclude domain="sharedpref" path="dialer_widget.xml" />
+        <exclude domain="sharedpref" path="voicemail_transcripts.xml" />
+        <include domain="file" path="custom_display_font" />
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <include domain="sharedpref" path="." />
+        <exclude domain="sharedpref" path="dialer_widget.xml" />
+        <exclude domain="sharedpref" path="voicemail_transcripts.xml" />
+        <include domain="file" path="custom_display_font" />
     </device-transfer>
-    -->
 </data-extraction-rules>

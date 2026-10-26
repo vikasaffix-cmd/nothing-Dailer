@@ -1,0 +1,12 @@
+# Baseline profile for the app's own code (libraries such as Compose ship
+# their own, which AGP merges in). androidx.profileinstaller installs it on
+# first launch, so ART compiles these ahead of time instead of interpreting
+# them at startup.
+#
+# The app is small, so every class and method is listed: that covers cold
+# start (MainActivity, theme, keypad), the Contacts and Recents lists while
+# scrolling (rows, avatars, display font, caches) and the incoming-call path
+# (CallService, InCallScreen, caller lookup).
+
+Lcom/example/allinonedailer/**;
+HSPLcom/example/allinonedailer/**->**(**)**

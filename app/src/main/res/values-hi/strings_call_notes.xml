@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="call_note_channel">कॉल नोट</string>
+    <string name="call_note_prompt_title">नोट जोड़ें</string>
+    <string name="call_note_prompt_body">%1$s के साथ कॉल खत्म हुई</string>
+    <string name="call_note_add_action">नोट जोड़ें</string>
+    <string name="call_note_add">नोट जोड़ें</string>
+    <string name="call_note_edit">बदलें</string>
+    <string name="call_note_delete">डिलीट</string>
+    <string name="call_note_save">सेव करें</string>
+    <string name="call_note_cancel">रद्द करें</string>
+    <string name="call_note_dismiss">हटाएं</string>
+    <string name="call_note_hint">यह कॉल किस बारे में थी?</string>
+    <string name="call_note_dialog_title">कॉल नोट</string>
+    <string name="call_note_last">पिछला नोट: %1$s</string>
+    <string name="call_note_has_note">नोट है</string>
+</resources>

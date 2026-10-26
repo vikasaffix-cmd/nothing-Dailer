@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="call_pill_title">कॉल पिल</string>
+    <string name="call_pill_summary">दूसरे ऐप इस्तेमाल करते समय आने वाली कॉल ऊपर एक छोटी पिल में दिखाएँ</string>
+    <string name="call_pill_needs_permission">“दूसरे ऐप के ऊपर दिखाएँ” अनुमति चाहिए। अनुमति देने के लिए टैप करें।</string>
+
+    <string name="call_pill_remind_me">मुझे याद दिलाएँ</string>
+    <string name="call_pill_open">कॉल स्क्रीन खोलें</string>
+    <string name="call_pill_more">जवाब के लिए नीचे स्वाइप करें</string>
+
+    <string name="ongoing_calls_channel">चालू कॉल</string>
+    <string name="ongoing_call">चालू कॉल</string>
+    <string name="ongoing_call_recording">चालू कॉल · रिकॉर्डिंग</string>
+    <string name="hang_up">कॉल काटें</string>
+</resources>

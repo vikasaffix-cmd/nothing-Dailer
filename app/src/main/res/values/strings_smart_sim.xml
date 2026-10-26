@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart SIM and WhatsApp shortcuts (data/SmartSim.kt, data/WhatsApp.kt, ui/components/SmartSimWhatsApp.kt) -->
+<resources>
+    <!-- Keypad hint under the SIM toggle -->
+    <string name="smart_sim_hint_pinned">Always uses %1$s for this contact</string>
+    <string name="smart_sim_hint_last_used">Last used: %1$s</string>
+    <string name="smart_sim_hint_same_network">Same network: %1$s</string>
+
+    <!-- Contact long-press sheet -->
+    <string name="smart_sim_always_use">Always call with</string>
+    <string name="smart_sim_auto">Auto</string>
+    <string name="smart_sim_pinned_toast">%1$s will always be called with %2$s</string>
+    <string name="smart_sim_unpinned_toast">SIM pin removed for %1$s</string>
+
+    <!-- Settings -->
+    <string name="smart_sim_title">Smart SIM</string>
+    <string name="smart_sim_summary">Picks the SIM on the keypad: a pinned SIM first, then the SIM you last used for that number, then the SIM on the same network (Jio for Jio numbers). The network is the number\'s original operator, so it can be wrong for ported numbers. Tap the toggle to change it. Emergency numbers are never changed.</string>
+    <string name="smart_sim_pinned_header">Pinned contacts</string>
+    <string name="smart_sim_pinned_empty">None yet. Long-press a contact to pin a SIM.</string>
+    <string name="smart_sim_clear_pin">Clear pin for %1$s</string>
+    <string name="smart_sim_clear">Clear</string>
+
+    <!-- WhatsApp -->
+    <string name="whatsapp_chat">WhatsApp chat</string>
+    <string name="whatsapp_voice_call">WhatsApp voice call</string>
+    <string name="whatsapp_video_call">WhatsApp video call</string>
+    <string name="whatsapp_open_chat">Open chat in WhatsApp</string>
+    <string name="whatsapp_continue">Continue on WhatsApp</string>
+    <string name="whatsapp_open_failed">Couldn\'t open WhatsApp</string>
+    <string name="whatsapp_short_chat">Chat</string>
+    <string name="whatsapp_short_voice">Voice</string>
+    <string name="whatsapp_short_video">Video</string>
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings › Backup & restore. Kept apart from strings.xml so parallel work doesn't collide. -->
+<resources>
+    <string name="backup_title">Backup &amp; restore</string>
+    <string name="settings_backup_summary">Save blocks, notes, speed dial and settings to a file, or bring them back</string>
+    <string name="backup_help">Everything NoDialer keeps itself goes into one file, so it survives a reinstall or a new phone. Contacts and the call log belong to your phone and Google account, so they aren’t in it.</string>
+
+    <string name="backup_export_title">Export</string>
+    <string name="backup_export_includes">Blocked numbers and rules, spam reports, saved caller names, speed dial, call notes, display font, language, and the vibration, recording and voicemail settings.</string>
+    <string name="backup_include_recordings">Include call recordings</string>
+    <string name="backup_include_recordings_summary">%1$d files, %2$s. Makes the backup much bigger.</string>
+    <string name="backup_include_recordings_none">No recordings on this phone</string>
+    <string name="backup_include_secrets">Include lookup URL and keys</string>
+    <string name="backup_include_secrets_summary">Off: the caller-ID lookup address stays on this phone. Turn on only if you keep the file somewhere private.</string>
+    <string name="backup_export_button">Export backup</string>
+    <string name="backup_saved">Backup saved: %1$s</string>
+    <string name="backup_saved_empty">Backup saved</string>
+    <string name="backup_failed">Couldn’t save the backup</string>
+
+    <string name="backup_import_title">Restore</string>
+    <string name="backup_import_summary">Pick a NoDialer backup file (.zip or .json). You’ll see what’s in it before anything changes.</string>
+    <string name="backup_import_button">Import backup</string>
+
+    <string name="backup_old_app_title">Import from the old app</string>
+    <string name="backup_old_app_body">The earlier test build (com.example.allinonedailer) has no Export. To move its data: install the export build over it from Android Studio (gradlew installDebug -PlegacyPackage, which keeps its data), open it, and use Settings › Backup &amp; restore › Export backup. Then import that file here. After that you can uninstall the old app.</string>
+    <string name="backup_old_app_button">Import old app’s backup</string>
+
+    <string name="backup_auto_title">Automatic backup</string>
+    <string name="backup_auto_body">Settings, notes and blocks also go into your phone’s Google backup (when it’s on and a screen lock is set) and move with “Copy apps &amp; data” to a new phone. Recordings don’t.</string>
+
+    <string name="backup_error_not_backup">This isn’t a NoDialer backup</string>
+    <string name="backup_error_too_new">This backup is from a newer NoDialer (format %1$d). Update the app, then try again.</string>
+    <string name="backup_error_corrupt">This backup file is damaged</string>
+    <string name="backup_error_read">Couldn’t read the file</string>
+
+    <string name="backup_dialog_title">Restore this backup?</string>
+    <string name="backup_dialog_from">Made %1$s</string>
+    <string name="backup_dialog_from_old">From the old app (com.example.allinonedailer)</string>
+    <string name="backup_dialog_empty">There’s nothing to restore in this backup.</string>
+    <string name="backup_mode_merge">Merge</string>
+    <string name="backup_mode_merge_summary">Keep what’s on this phone and add what’s missing</string>
+    <string name="backup_mode_replace">Replace</string>
+    <string name="backup_mode_replace_summary">Swap this phone’s blocks, notes and settings for the backup’s</string>
+    <string name="backup_restore_recordings">Restore recordings</string>
+    <string name="backup_secrets_note">Includes the caller-ID lookup address.</string>
+    <string name="backup_voicemail_note">Voicemail: pick the folder again afterwards. Folder access doesn’t carry over.</string>
+    <string name="backup_restore">Restore</string>
+    <string name="backup_restored">Backup restored</string>
+    <string name="backup_restore_failed">Couldn’t restore the backup</string>
+
+    <string name="backup_has_font">Custom display font</string>
+    <string name="backup_language">Language: %1$s</string>
+    <plurals name="backup_count_blocked">
+        <item quantity="one">%d blocked number</item>
+        <item quantity="other">%d blocked numbers</item>
+    </plurals>
+    <plurals name="backup_count_rules">
+        <item quantity="one">%d block rule</item>
+        <item quantity="other">%d block rules</item>
+    </plurals>
+    <plurals name="backup_count_spam">
+        <item quantity="one">%d spam report</item>
+        <item quantity="other">%d spam reports</item>
+    </plurals>
+    <plurals name="backup_count_notes">
+        <item quantity="one">%d call note</item>
+        <item quantity="other">%d call notes</item>
+    </plurals>
+    <plurals name="backup_count_speed_dial">
+        <item quantity="one">%d speed-dial key</item>
+        <item quantity="other">%d speed-dial keys</item>
+    </plurals>
+    <plurals name="backup_count_names">
+        <item quantity="one">%d saved caller name</item>
+        <item quantity="other">%d saved caller names</item>
+    </plurals>
+    <plurals name="backup_count_recordings_index">
+        <item quantity="one">%d recording in the list</item>
+        <item quantity="other">%d recordings in the list</item>
+    </plurals>
+    <plurals name="backup_count_recording_files">
+        <item quantity="one">%d recording file</item>
+        <item quantity="other">%d recording files</item>
+    </plurals>
+</resources>

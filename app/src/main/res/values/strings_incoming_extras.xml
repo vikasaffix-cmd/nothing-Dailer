@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Flip to silence -->
+    <string name="flip_silence_title">Flip to silence</string>
+    <string name="flip_silence_summary">Turn the phone face-down while it rings to silence it. The call isn\'t declined.</string>
+
+    <!-- Caller card on the incoming-call screen and pill -->
+    <string name="caller_card_birthday">🎂 Birthday today</string>
+    <string name="caller_card_anniversary">💍 Anniversary today</string>
+    <string name="caller_card_reminder">Call-back reminder: %1$s</string>
+    <string name="caller_card_last_call">Last call: %1$s</string>
+    <string name="caller_card_today">today</string>
+    <string name="caller_card_yesterday">yesterday</string>
+    <string name="caller_card_today_at">today %1$s</string>
+    <string name="caller_card_tomorrow_at">tomorrow %1$s</string>
+    <string name="caller_card_seconds">%1$d sec</string>
+    <string name="caller_card_minutes">%1$d min</string>
+    <string name="caller_card_incoming">incoming</string>
+    <string name="caller_card_outgoing">outgoing</string>
+    <string name="caller_card_missed">missed</string>
+    <string name="caller_card_declined">declined</string>
+    <plurals name="caller_card_missed_week">
+        <item quantity="one">%1$d missed call this week</item>
+        <item quantity="other">%1$d missed calls this week</item>
+    </plurals>
+</resources>

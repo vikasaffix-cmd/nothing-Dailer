@@ -64,8 +64,13 @@ class CallRecordingService : Service() {
         currentPhoneNumber = phoneNumber
         startTimeMillis = System.currentTimeMillis()
 
-        val notification = createNotification("Recording call with $phoneNumber...")
-        startForeground(NOTIFICATION_ID, notification)
+        // During a call, share the ongoing-call notification instead of adding a second one.
+        val callNotification = OngoingCallNotification.current
+        if (callNotification != null) {
+            startForeground(OngoingCallNotification.ID, callNotification)
+        } else {
+            startForeground(NOTIFICATION_ID, createNotification(getString(R.string.recording_notification_text, phoneNumber)))
+        }
 
         try {
             val dir = File(getExternalFilesDir(null), "recordings")
@@ -73,7 +78,7 @@ class CallRecordingService : Service() {
                 dir.mkdirs()
             }
 
-            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
             val fileName = "CALL_${phoneNumber}_$timeStamp.m4a"
             val file = File(dir, fileName)
             currentFilePath = file.absolutePath
@@ -175,10 +180,10 @@ class CallRecordingService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Call Recording Service",
+                getString(R.string.recording_channel_name),
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Shows active call recording status"
+                description = getString(R.string.recording_channel_description)
             }
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
@@ -187,7 +192,7 @@ class CallRecordingService : Service() {
 
     private fun createNotification(contentText: String): Notification {
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Auto Call Recorder")
+            .setContentTitle(getString(R.string.recording_notification_title))
             .setContentText(contentText)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_LOW)

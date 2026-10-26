@@ -1,3 +1,363 @@
 <resources>
-    <string name="app_name">allinoneDailer</string>
+    <string name="app_name">NoDialer</string>
+
+    <!-- ui/contacts/ContactsScreen.kt -->
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="call">Call</string>
+    <string name="video_call">Video call</string>
+    <string name="text_message">Text</string>
+    <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="favourite">Favourite</string>
+    <string name="add_contact">Add contact</string>
+    <string name="copy_number">Copy number</string>
+    <string name="phone_number">Phone number</string>
+    <string name="number_copied">Number copied</string>
+    <string name="share_contact">Share contact</string>
+    <string name="no_app_can_handle">No app can handle this</string>
+    <string name="add_to_favourites">Add to fav.</string>
+    <string name="remove_from_favourites">Remove from fav.</string>
+    <string name="contacts_title">Contacts</string>
+    <string name="contacts_permission_needed">Contacts permission needed</string>
+    <string name="contacts_favourite_filter">Favourite</string>
+    <string name="contacts_total">Total: %1$d</string>
+
+    <!-- ui/dialer/FavouritesRow.kt -->
+    <string name="favourites">Favourites</string>
+    <string name="voice_call">Voice call</string>
+
+    <!-- ui/dialer/SpeedDial.kt -->
+    <string name="speed_dial_assigned">Key %1$d → %2$s</string>
+    <string name="no_voicemail_number">No voicemail number set</string>
+    <string name="speed_dial_key">Key %1$d</string>
+    <string name="speed_dial_choose">Choose who long-pressing %1$d calls</string>
+    <string name="loading">Loading…</string>
+    <string name="no_contacts">No contacts</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- ui/settings/SpeedDialScreen.kt -->
+    <string name="speed_dial_title">Speed dial</string>
+    <string name="speed_dial_help">Long-press a key on the empty keypad to call. Keys with a number show a red dot.</string>
+    <string name="voicemail">Voicemail</string>
+    <string name="speed_dial_no_voicemail">No voicemail number · tap to set up</string>
+    <string name="speed_dial_not_set">Not set</string>
+    <string name="speed_dial_tap_to_choose">Tap to choose a contact</string>
+    <string name="remove">Remove</string>
+
+    <!-- ui/recordings/RecordingsScreen.kt -->
+    <string name="unknown">Unknown</string>
+    <string name="recordings_title">Recordings</string>
+    <string name="recording_cant_play">Can\'t play this recording</string>
+    <string name="recordings_empty_title">No recordings</string>
+    <string name="recordings_empty_body">Turn on Auto call recording in Settings and your calls will appear here.</string>
+    <string name="no_matches">No matches</string>
+    <string name="recordings_no_match">No recordings match “%1$s”.</string>
+    <string name="recording_delete_title">Delete recording?</string>
+    <string name="recording_delete_body">The recording of your call with %1$s on %2$s will be removed from this device.</string>
+    <string name="delete">Delete</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="recording_share_subject">Call recording – %1$s</string>
+    <string name="recording_share">Share recording</string>
+    <string name="recording_cant_share">Can\'t share this recording</string>
+    <string name="no_app_to_share">No app to share with</string>
+
+    <!-- ui/settings/BlockRulesScreen.kt -->
+    <string name="blocking_title">Blocking</string>
+    <string name="blocking_intro">Everything here stays on this device. Contacts are never blocked.</string>
+    <string name="blocking_hidden_numbers">Hidden numbers</string>
+    <string name="blocking_hidden_title">Block private / hidden callers</string>
+    <string name="blocking_hidden_summary">Declines calls that arrive with no number shown.</string>
+    <string name="blocking_starts_with">Starts with</string>
+    <string name="blocking_140_title">Block promotional telemarketing (140…)</string>
+    <string name="blocking_140_summary">TRAI\'s prefix for promotional calls.</string>
+    <string name="add">Add</string>
+    <string name="blocking_160_note">160… numbers are verified banks, government and service senders (OTPs, alerts, transaction calls). Blocking them can hide important calls.</string>
+    <string name="blocking_prefix_on">Calls starting with %1$s are declined</string>
+    <string name="off">Off</string>
+    <string name="blocking_prefix_hint">Prefix, e.g. 140</string>
+    <string name="blocking_160_warning">160… is used by banks, government and service providers. Are you sure?</string>
+    <string name="blocking_blocked_numbers">Blocked numbers</string>
+    <string name="blocking_none_blocked">No numbers blocked</string>
+    <string name="block">Block</string>
+    <string name="blocking_reported_spam">Reported spam</string>
+    <string name="blocking_reported_note">Reported numbers are marked “Reported by you” and blocked. Reports are kept on this device only.</string>
+    <string name="blocking_none_reported">Nothing reported</string>
+    <string name="blocking_reported_when">Reported %1$s</string>
+    <string name="blocking_report_hint">Report a number</string>
+    <string name="report">Report</string>
+    <string name="blocking_reported_toast">Reported and blocked</string>
+    <string name="remove_item">Remove %1$s</string>
+
+    <!-- ui/voicemail/VoicemailScreen.kt -->
+    <string name="voicemail_cant_play">Can\'t play this file</string>
+    <string name="voicemail_folder_access_lost">Couldn\'t keep access to that folder</string>
+    <string name="voicemail_chosen_folder">Chosen folder</string>
+    <string name="voicemail_delete_title">Delete voicemail?</string>
+    <string name="voicemail_delete_body">The voicemail from %1$s on %2$s will be deleted from %3$s.</string>
+    <string name="voicemail_the_folder">the folder</string>
+    <string name="voicemail_cant_delete">Couldn\'t delete this file</string>
+    <string name="audio_earpiece">Earpiece</string>
+    <string name="audio_speaker">Speaker</string>
+    <string name="call_back">Call back</string>
+    <string name="message">Message</string>
+    <string name="change">Change</string>
+    <string name="voicemail_choose_folder_title">Choose your voicemail folder</string>
+    <string name="voicemail_choose_folder_body">Save the audio files your voicemail service sends you into one folder, and this screen lists them. Suggested: Download/Voicemail (create it in the picker if it isn\'t there). Put the caller\'s number in the file name, e.g. 9876543210_20261025-1430.m4a, to see who called.</string>
+    <string name="voicemail_choose_folder">Choose folder</string>
+    <string name="voicemail_number_placeholder">&lt;number></string>
+    <string name="voicemail_setup_title">Set up voicemail</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <string name="voicemail_setup_body">Jio and Airtel don\'t offer visual voicemail on this phone, so the app can\'t fetch messages itself, and it never answers or records calls for you. Instead, forward calls you don\'t pick up to a voicemail service, then save the recordings it sends you into the folder above.\n\nYou need a voicemail service number from a voicemail provider or your carrier. Enter it below, then open each code on the keypad and press call. Forwarding is set per SIM: pick the SIM on the keypad before you press call, and repeat for the other SIM. Your carrier may charge for forwarded calls.</string>
+    <string name="voicemail_service_number">Voicemail service number</string>
+    <string name="forward_no_answer">When you don\'t answer</string>
+    <string name="forward_busy">When you\'re busy</string>
+    <string name="forward_unreachable">When you\'re unreachable</string>
+    <string name="forward_cancel_all">Cancel all forwarding</string>
+    <string name="keypad">Keypad</string>
+    <string name="voicemail_empty_title">No voicemail</string>
+    <string name="voicemail_empty_body">Audio files (mp3, m4a, aac, wav, amr, ogg, opus) saved in %1$s show up here. Pull down to refresh.</string>
+    <string name="voicemail_share_subject">Voicemail – %1$s</string>
+    <string name="voicemail_share">Share voicemail</string>
+    <string name="not_allowed">Not allowed</string>
+    <string name="yesterday">Yesterday</string>
+    <plurals name="voicemail_unheard">
+        <item quantity="one">%1$d unheard</item>
+        <item quantity="other">%1$d unheard</item>
+    </plurals>
+
+    <!-- data/CallerIdRepository.kt -->
+    <string name="caller_blocked_prefix">Blocked: starts with %1$s</string>
+    <string name="caller_reported_by_you">Reported by you</string>
+    <string name="caller_blocked_by_you">Blocked by you</string>
+    <string name="caller_possible_premium">Possible premium-rate</string>
+    <string name="caller_possible_telemarketing">Possible premium-rate / telemarketing</string>
+
+    <!-- data/NumberInfo.kt -->
+    <string name="number_type_mobile">Mobile</string>
+    <string name="number_type_landline">Landline</string>
+    <string name="number_type_phone">Phone</string>
+    <string name="number_type_toll_free">Toll-free</string>
+    <string name="number_type_premium">Premium-rate</string>
+    <string name="number_type_shared_cost">Shared-cost</string>
+    <string name="number_type_voip">VoIP</string>
+
+    <!-- data/VoicemailRepository.kt -->
+    <string name="internal_storage">Internal storage</string>
+
+    <!-- service/MissedCallNotifier.kt -->
+    <string name="private_number">Private number</string>
+    <string name="missed_calls">Missed calls</string>
+    <string name="missed_call">Missed call</string>
+    <plurals name="missed_calls_count">
+        <item quantity="one">%1$d missed call</item>
+        <item quantity="other">%1$d missed calls</item>
+    </plurals>
+
+    <!-- service/CallRecordingService.kt -->
+    <string name="recording_notification_text">Recording call with %1$s…</string>
+    <string name="recording_channel_name">Call recording</string>
+    <string name="recording_channel_description">Shows active call recording status</string>
+    <string name="recording_notification_title">Auto call recorder</string>
+
+    <!-- data/CallLogGroups.kt -->
+    <string name="filter_all">All</string>
+    <string name="filter_missed">Missed</string>
+    <string name="filter_incoming">Incoming</string>
+    <string name="filter_outgoing">Outgoing</string>
+    <string name="filter_blocked">Blocked</string>
+    <string name="recents_empty">No recent calls</string>
+    <string name="recents_empty_missed">No missed calls</string>
+    <string name="recents_empty_incoming">No incoming calls</string>
+    <string name="recents_empty_outgoing">No outgoing calls</string>
+    <string name="recents_empty_blocked">No blocked calls</string>
+    <string name="today">Today</string>
+    <string name="duration_hm">%1$dh %2$dm</string>
+    <string name="duration_ms">%1$dm %2$ds</string>
+    <string name="duration_s">%1$ds</string>
+
+    <!-- ui/history/CallLogScreen.kt -->
+    <string name="recents_title">Recents</string>
+    <string name="clear_search">Clear search</string>
+    <string name="call_type_incoming">Incoming</string>
+    <string name="call_type_outgoing">Outgoing</string>
+    <string name="call_type_missed">Missed</string>
+    <string name="call_type_rejected">Rejected</string>
+    <string name="call_type_blocked">Blocked</string>
+    <string name="spam">Spam</string>
+    <string name="recording_available">Recording available</string>
+    <string name="delete_call">Delete call</string>
+    <string name="report_spam">Report spam</string>
+    <string name="unblock">Unblock</string>
+    <string name="block_number">Block number</string>
+    <string name="recording">Recording</string>
+    <string name="call_failed">Couldn\'t place the call</string>
+    <plurals name="recents_delete_title">
+        <item quantity="one">Delete this call?</item>
+        <item quantity="other">Delete %1$d calls?</item>
+    </plurals>
+    <plurals name="recents_delete_body">
+        <item quantity="one">Removes the call with %2$s from the call log.</item>
+        <item quantity="other">Removes these %1$d calls with %2$s from the call log.</item>
+    </plurals>
+    <plurals name="recents_group_count">
+        <item quantity="one"> (%1$d)</item>
+        <item quantity="other"> (%1$d)</item>
+    </plurals>
+
+    <!-- ui/MainActivity.kt -->
+    <string name="default_dialer_title">Set as default phone app</string>
+    <string name="default_dialer_body">Required for incoming-call screen, caller ID and call recording</string>
+    <string name="default_dialer_button">Set default</string>
+
+    <!-- data/AppFont.kt -->
+    <string name="font_dot_matrix">Dot matrix</string>
+    <string name="font_dot_matrix_summary">Nothing Phone–inspired font by Dmitriy Sychiov (default)</string>
+    <string name="font_doto">Doto</string>
+    <string name="font_doto_summary">Rounded dot-matrix font</string>
+    <string name="font_classic">Classic dots</string>
+    <string name="font_classic_summary">The app\'s original hand-drawn dots</string>
+    <string name="font_mono">Mono</string>
+    <string name="font_mono_summary">Plain monospace</string>
+    <string name="font_standard">Standard</string>
+    <string name="font_standard_summary">Your phone\'s normal font</string>
+    <string name="font_custom">Custom font…</string>
+    <string name="font_custom_summary">A .ttf or .otf file you choose from your phone</string>
+
+    <!-- ui/settings/SettingsScreen.kt -->
+    <string name="settings_hidden_numbers">hidden numbers</string>
+    <string name="settings_block_summary_empty">Block numbers, prefixes like 140, or report spam</string>
+    <string name="settings_title">Dialer settings</string>
+    <string name="settings_banner_title">Ad-free &amp; on-device</string>
+    <string name="settings_banner_body">No ads, no bundled tracking. Recordings and your blocklist stay in local storage on this device.</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_summary">The app follows your phone’s language unless you pick one here.</string>
+    <string name="settings_language_system">Phone’s language</string>
+    <string name="settings_font">Font</string>
+    <string name="settings_font_summary">Used for names, numbers, the keypad and titles.</string>
+    <string name="settings_font_invalid">That file isn\'t a font Android can use (.ttf or .otf)</string>
+    <string name="settings_font_choose_other">Choose a different font file…</string>
+    <string name="settings_auto_record">Auto call recording</string>
+    <string name="settings_auto_record_summary">Record connected calls automatically. You are responsible for obtaining consent where your local law requires it.</string>
+    <string name="settings_recordings">Call recordings</string>
+    <string name="settings_recordings_summary">Play, share or delete recorded calls</string>
+    <string name="settings_voicemail_summary">Play voicemail files and set up call forwarding</string>
+    <string name="settings_caller_id">Caller ID</string>
+    <string name="settings_caller_id_summary">Identify incoming numbers using your contacts and, if enabled below, an online lookup service.</string>
+    <string name="settings_spam_block">Block flagged spam calls</string>
+    <string name="settings_spam_block_summary">Auto-decline numbers on your blocklist, plus numbers an enabled lookup service flags as spam.</string>
+    <string name="settings_online_lookup">Online number lookup</string>
+    <string name="settings_online_lookup_summary">Optional. Sends unknown numbers to a lookup endpoint you configure. The app has no bundled caller-ID database.</string>
+    <string name="settings_lookup_endpoint">Lookup endpoint (https://…)</string>
+    <string name="settings_speed_dial_summary">Long-press keypad keys 2–9 to call a contact; 1 calls voicemail</string>
+    <string name="settings_block_rules">Blocked numbers &amp; rules</string>
+    <plurals name="settings_blocked_count">
+        <item quantity="one">%1$d blocked</item>
+        <item quantity="other">%1$d blocked</item>
+    </plurals>
+    <plurals name="settings_rules_count">
+        <item quantity="one">%1$d starts-with rule</item>
+        <item quantity="other">%1$d starts-with rules</item>
+    </plurals>
+
+    <!-- ui/dialer/DialpadScreen.kt -->
+    <string name="paste">Paste</string>
+    <string name="copy">Copy</string>
+    <string name="back_to_call">Back to call</string>
+
+    <!-- service/CallService.kt -->
+    <string name="sim_slot">SIM %1$d</string>
+    <string name="conference">Conference</string>
+    <string name="incoming_calls_channel">Incoming calls</string>
+    <string name="call_waiting">Call waiting</string>
+    <string name="incoming_call">Incoming call</string>
+
+    <!-- ui/incall/InCallScreen.kt -->
+    <string name="name_from_network">Name from network</string>
+    <string name="hold_and_answer">Hold &amp; answer</string>
+    <string name="end_and_answer">End &amp; answer</string>
+    <string name="decline">Decline</string>
+    <string name="on_hold">On hold</string>
+    <string name="calling">Calling…</string>
+    <string name="connected">Connected</string>
+    <string name="connecting">Connecting…</string>
+    <string name="merge">Merge</string>
+    <string name="swap">Swap</string>
+    <string name="split">Split</string>
+    <string name="end_call_with">End call with %1$s</string>
+    <string name="more_count">+%1$d more</string>
+    <string name="holding">Holding…</string>
+    <string name="call_with">call with</string>
+    <string name="remember_choice">Remember this choice</string>
+    <string name="text_replies_unavailable">Text replies aren\'t available for this call</string>
+    <string name="spam_suspected">suspected</string>
+    <string name="is_video_calling">is video calling…</string>
+    <string name="is_calling">is calling…</string>
+    <string name="quick_reply_later">Can\'t talk now. Call you later.</string>
+    <string name="quick_reply_right_back">I\'ll call you right back.</string>
+    <string name="quick_reply_meeting">I\'m in a meeting. I\'ll call you soon.</string>
+    <string name="quick_reply_text_me">Can you text me instead?</string>
+    <string name="reply_with_message">Reply with a message</string>
+    <string name="send_to_voicemail">Send to voicemail</string>
+    <string name="answer">Answer</string>
+    <string name="call_ended">Call ended</string>
+    <string name="camera_permission_needed">Camera permission is needed for video</string>
+    <string name="rec_badge">REC</string>
+    <string name="switch_to_video">Switch to video?</string>
+    <string name="accept">Accept</string>
+    <string name="mute">Mute</string>
+    <string name="add_call">Add call</string>
+    <string name="two_calls_up">Two calls are already up</string>
+    <string name="network_cant_add_call">Your network can\'t add another call right now</string>
+    <string name="hold">Hold</string>
+    <string name="video_not_offered">Video isn\'t offered on this call by your carrier or the other phone</string>
+    <string name="end_call">End call</string>
+    <string name="audio">Audio</string>
+    <string name="hide_keypad">Hide keypad</string>
+    <string name="more">More</string>
+    <string name="block_and_decline">Block &amp; decline</string>
+    <string name="block_and_end">Block &amp; end</string>
+    <string name="audio_phone">Phone</string>
+    <string name="audio_wired_headset">Wired headset</string>
+    <string name="audio_bluetooth">Bluetooth</string>
+    <plurals name="in_call_count">
+        <item quantity="one">%1$d in call</item>
+        <item quantity="other">%1$d in call</item>
+    </plurals>
+
+    <!-- ui/settings/VibrationSettings.kt -->
+    <string name="vibration">Vibration</string>
+    <string name="vibration_summary">Buzz on key presses, in-call buttons, and when calls connect or end. Follows your system touch-feedback and Do Not Disturb settings.</string>
+    <string name="vibration_strength">Strength</string>
+    <string name="vibration_keypad_summary">Each key press on the dial pad and the in-call keypad</string>
+    <string name="vibration_call_events">Call connect &amp; end</string>
+    <string name="vibration_call_events_summary">A double buzz when someone answers, a longer one when a call ends</string>
+    <string name="vibration_light">Light</string>
+    <string name="vibration_medium">Medium</string>
+    <string name="vibration_strong">Strong</string>
+
+    <!-- Glyph lights (service/GlyphController.kt, ui/settings/GlyphLightsSettings.kt) -->
+    <string name="glyph_lights">Glyph lights</string>
+    <string name="glyph_lights_summary">Light up the Glyph Matrix on the back for calls</string>
+    <string name="glyph_lights_unsupported">This phone has no Glyph Matrix</string>
+    <string name="glyph_incoming">Incoming calls</string>
+    <string name="glyph_incoming_summary">A pattern while the phone rings; stops when you answer or decline</string>
+    <string name="glyph_pattern_everyone">Pattern for everyone</string>
+    <string name="glyph_pattern_favourites">Pattern for favourites</string>
+    <string name="glyph_pattern_contact_hint">Long-press a contact to give them their own pattern. Tap a pattern to preview it.</string>
+    <string name="glyph_missed">Missed calls</string>
+    <string name="glyph_missed_summary">A slow blink until you open Recents or clear the notification</string>
+    <string name="glyph_call_timer">Call timer</string>
+    <string name="glyph_call_timer_summary">One segment lights per minute during a call</string>
+    <string name="glyph_lights_note">Off during Do Not Disturb and for calls silenced by quiet hours. Glyph Toys take priority.</string>
+    <string name="glyph_contact_pattern">Glyph pattern</string>
+    <string name="glyph_pattern_default">Default</string>
+    <string name="glyph_pattern_pulse">Pulse</string>
+    <string name="glyph_pattern_ripple">Ripple</string>
+    <string name="glyph_pattern_spin">Spin</string>
+    <string name="glyph_pattern_heartbeat">Heartbeat</string>
+    <string name="glyph_pattern_flash">Flash</string>
 </resources>

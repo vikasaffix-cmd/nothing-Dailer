@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_sim_hint_pinned">इस संपर्क के लिए हमेशा %1$s</string>
+    <string name="smart_sim_hint_last_used">पिछली बार: %1$s</string>
+    <string name="smart_sim_hint_same_network">एक ही नेटवर्क: %1$s</string>
+
+    <string name="smart_sim_always_use">हमेशा इससे कॉल करें</string>
+    <string name="smart_sim_auto">स्वचालित</string>
+    <string name="smart_sim_pinned_toast">%1$s को हमेशा %2$s से कॉल किया जाएगा</string>
+    <string name="smart_sim_unpinned_toast">%1$s के लिए SIM पिन हटाया गया</string>
+
+    <string name="smart_sim_title">स्मार्ट SIM</string>
+    <string name="smart_sim_summary">कीपैड पर SIM चुनता है: पहले पिन किया गया SIM, फिर उस नंबर के लिए पिछली बार इस्तेमाल किया गया SIM, फिर उसी नेटवर्क का SIM (Jio नंबरों के लिए Jio)। नेटवर्क नंबर का मूल ऑपरेटर है, इसलिए पोर्ट किए गए नंबरों के लिए यह गलत हो सकता है। बदलने के लिए टॉगल पर टैप करें। आपातकालीन नंबर कभी नहीं बदले जाते।</string>
+    <string name="smart_sim_pinned_header">पिन किए गए संपर्क</string>
+    <string name="smart_sim_pinned_empty">अभी कोई नहीं। SIM पिन करने के लिए किसी संपर्क को देर तक दबाएँ।</string>
+    <string name="smart_sim_clear_pin">%1$s का पिन हटाएँ</string>
+    <string name="smart_sim_clear">हटाएँ</string>
+
+    <string name="whatsapp_chat">WhatsApp चैट</string>
+    <string name="whatsapp_voice_call">WhatsApp वॉइस कॉल</string>
+    <string name="whatsapp_video_call">WhatsApp वीडियो कॉल</string>
+    <string name="whatsapp_open_chat">WhatsApp में चैट खोलें</string>
+    <string name="whatsapp_continue">WhatsApp पर जारी रखें</string>
+    <string name="whatsapp_open_failed">WhatsApp नहीं खुल सका</string>
+    <string name="whatsapp_short_chat">चैट</string>
+    <string name="whatsapp_short_voice">वॉइस</string>
+    <string name="whatsapp_short_video">वीडियो</string>
+</resources>

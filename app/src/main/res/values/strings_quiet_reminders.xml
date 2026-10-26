@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Quiet hours (ui/settings/QuietHoursScreen.kt) and call-back reminders (ui/reminders, service/CallReminderReceiver.kt). -->
+<resources>
+    <!-- Settings rows -->
+    <string name="settings_quiet_hours_summary">Silence calls at night; favourites, VIPs and repeat callers still ring</string>
+    <string name="settings_reminders_summary">Scheduled calls and “call back” reminders</string>
+
+    <!-- Quiet hours -->
+    <string name="quiet_hours_title">Quiet hours</string>
+    <string name="quiet_hours_help">During quiet hours other calls are silenced, not declined: they still show as missed calls you can return. Emergency calls and call-backs after you dial an emergency number always ring.</string>
+    <string name="quiet_hours_needs_android_10">Silencing calls needs Android 10 or newer. On this phone calls keep ringing.</string>
+    <string name="quiet_hours_when">When</string>
+    <string name="quiet_hours_schedule">On a schedule</string>
+    <string name="quiet_hours_follow_dnd">Whenever Do Not Disturb is on</string>
+    <string name="quiet_hours_dnd_note">Your phone\'s Do Not Disturb settings still apply. To let favourites and repeat callers ring, allow starred contacts and repeat callers in the system Do Not Disturb settings too.</string>
+    <string name="quiet_hours_from">From</string>
+    <string name="quiet_hours_to">To</string>
+    <string name="quiet_hours_days_note">Nights that start on the selected days</string>
+    <string name="quiet_hours_who_rings">Who can ring</string>
+    <string name="quiet_hours_favourites">Favourites</string>
+    <string name="quiet_hours_favourites_summary">Starred contacts ring as usual</string>
+    <string name="quiet_hours_repeat">Repeat callers</string>
+    <string name="quiet_hours_repeat_summary">A second call from the same number within %1$d min rings, in case it\'s urgent</string>
+    <string name="quiet_hours_shorter">Shorter</string>
+    <string name="quiet_hours_longer">Longer</string>
+    <string name="quiet_hours_minutes">%1$d min</string>
+    <string name="quiet_hours_vip">VIP list</string>
+    <string name="quiet_hours_vip_summary">These numbers always ring, even if they aren\'t favourites</string>
+    <string name="quiet_hours_add_contact">Add contact</string>
+    <string name="quiet_hours_add_number">Add number</string>
+    <string name="quiet_hours_off">Off</string>
+    <string name="quiet_hours_on_now">On now: calls are being silenced</string>
+    <string name="quiet_hours_waiting_dnd">Turns on with Do Not Disturb</string>
+    <string name="quiet_hours_starts_at">Starts at %1$s</string>
+
+    <!-- Reminders -->
+    <string name="reminders_title">Reminders</string>
+    <string name="reminders_help">Calls you scheduled and reminders to call someone back. Tap one to change it.</string>
+    <string name="reminders_inexact_note">Reminders may arrive a few minutes late. Allow \"Alarms &amp; reminders\" for exact times.</string>
+    <string name="reminders_allow_exact">Allow exact times</string>
+    <string name="reminders_empty">No reminders. Use \"Remind me\" on a missed call, in Recents or on a contact, or \"Schedule call\" to plan one.</string>
+    <string name="reminders_cancel">Cancel reminder</string>
+    <string name="reminders_channel">Call-back reminders</string>
+    <string name="reminder_call_back_title">Call back %1$s</string>
+    <string name="reminder_body">Reminder for %1$s</string>
+    <string name="reminder_body_with_number">%1$s · reminder for %2$s</string>
+    <string name="reminder_snooze">Snooze 15 min</string>
+    <string name="reminder_set_for">Reminder set for %1$s</string>
+    <string name="reminder_may_be_late">It may arrive a few minutes late.</string>
+    <string name="reminder_tomorrow_at">Tomorrow %1$s</string>
+    <string name="reminder_in_15_min">In 15 minutes</string>
+    <string name="reminder_in_1_hour">In 1 hour</string>
+    <string name="reminder_tonight">Tonight, %1$s</string>
+    <string name="reminder_morning">Morning, %1$s</string>
+    <string name="reminder_remind_me">Remind me</string>
+    <string name="reminder_remind_to_call">Remind me to call</string>
+    <string name="reminder_pick_time">Pick a date and time</string>
+    <string name="reminder_next">Next</string>
+    <string name="reminder_set">Set</string>
+    <string name="reminder_time_passed">Pick a time in the future</string>
+    <string name="reminder_decline_and_remind">Decline and remind me to call back</string>
+</resources>

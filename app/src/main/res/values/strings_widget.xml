@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home-screen widget (widget/ package, xml/dialer_widget_info.xml, layout/widget_preview.xml). -->
+<resources>
+    <string name="widget_label">Favourites &amp; recents</string>
+    <string name="widget_description">Call your starred contacts and recent callers in one tap</string>
+    <string name="widget_title">Favourites</string>
+    <string name="widget_open_app">Open NoDialer</string>
+    <string name="widget_call">Call %1$s</string>
+    <string name="widget_no_favourites">Star a contact to pin it here</string>
+    <string name="widget_no_recents">No calls yet</string>
+    <string name="widget_needs_permission">Open NoDialer to allow access</string>
+    <string name="widget_yesterday">Yesterday</string>
+    <string name="widget_incoming">Incoming</string>
+    <string name="widget_outgoing">Outgoing</string>
+    <string name="widget_missed">Missed</string>
+    <string name="widget_declined">Declined</string>
+    <!-- Sample rows in the widget picker preview. -->
+    <string name="widget_preview_name_1">Mom</string>
+    <string name="widget_preview_name_2">Aarav</string>
+    <string name="widget_preview_name_3">Office</string>
+</resources>

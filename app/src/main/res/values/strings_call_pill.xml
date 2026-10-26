@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings → Call pill -->
+    <string name="call_pill_title">Call pill</string>
+    <string name="call_pill_summary">Show incoming calls as a small pill at the top while you use other apps</string>
+    <string name="call_pill_needs_permission">Needs “Display over other apps”. Tap to allow it.</string>
+
+    <!-- The pill and its expanded card -->
+    <string name="call_pill_remind_me">Remind me</string>
+    <string name="call_pill_open">Open call screen</string>
+    <string name="call_pill_more">Swipe down for replies</string>
+
+    <!-- Ongoing-call notification (status-bar call chip) -->
+    <string name="ongoing_calls_channel">Ongoing calls</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="ongoing_call_recording">Ongoing call · Recording</string>
+    <string name="hang_up">Hang up</string>
+</resources>

@@ -6,6 +6,7 @@ import android.provider.CallLog
 import android.util.Log
 import java.util.Date
 import kotlin.math.abs
+import com.example.allinonedailer.R
 
 data class CallLogEntry(
     val id: String,
@@ -24,7 +25,8 @@ data class CallLogEntry(
 class CallLogRepository(private val context: Context) {
 
     companion object {
-        private const val MAX_ENTRIES = 100
+        /** Rows Recents shows first, before the rest of the history finishes loading. */
+        const val FIRST_PAGE = 200
 
         /**
          * The last list loaded, so Recents and the keypad can show it instantly
@@ -35,8 +37,15 @@ class CallLogRepository(private val context: Context) {
             private set
     }
 
-    /** Call off the main thread. */
-    fun getCallLogs(): List<CallLogEntry> {
+    /**
+     * Loads the whole call log, newest first. Call off the main thread.
+     * [onFirstPage] gets a copy of the first [firstPageSize] rows as soon as they
+     * are read (on the calling thread), so a screen can show them early.
+     */
+    fun getCallLogs(
+        firstPageSize: Int = 0,
+        onFirstPage: ((List<CallLogEntry>) -> Unit)? = null
+    ): List<CallLogEntry> {
         val startedAt = SystemClock.elapsedRealtime()
         val list = mutableListOf<CallLogEntry>()
         val projection = arrayOf(
@@ -52,8 +61,12 @@ class CallLogRepository(private val context: Context) {
         val callerIdRepo = CallerIdRepository(context)
         // Parse the saved recordings once, not once per row.
         val recordings = RecordingRepository(context).getRecordings()
+            .groupBy { it.phoneNumber.filter(Char::isDigit) }
         // The same few numbers repeat through the log; resolve each one once.
         val infoByNumber = HashMap<String, CallerInfo>()
+        // Already-loaded contacts answer "is this unknown number saved now?"
+        // without a contacts query per number.
+        val contactsByKey = ContactsRepository.cachedByKey()
 
         try {
             context.contentResolver.query(
@@ -71,8 +84,8 @@ class CallLogRepository(private val context: Context) {
                 val dateIdx = cursor.getColumnIndex(CallLog.Calls.DATE)
                 val durationIdx = cursor.getColumnIndex(CallLog.Calls.DURATION)
 
-                while (list.size < MAX_ENTRIES && cursor.moveToNext()) {
-                    val number = cursor.getString(numberIdx) ?: "Unknown"
+                while (cursor.moveToNext()) {
+                    val number = cursor.getString(numberIdx) ?: context.getString(R.string.unknown)
                     // Unknown numbers come back with an empty name, not null.
                     val cachedName = (if (nameIdx != -1) cursor.getString(nameIdx) else null)
                         ?.takeIf { it.isNotBlank() }
@@ -81,7 +94,7 @@ class CallLogRepository(private val context: Context) {
                     val dateMs = cursor.getLong(dateIdx)
                     val digits = number.filter(Char::isDigit)
 
-                    val info = infoByNumber.getOrPut(digits.takeLast(10).ifEmpty { number }) {
+                    val info = infoByNumber.getOrPut(PhoneNumbers.key(number).ifEmpty { number }) {
                         if (cachedName != null) {
                             // Saved contact: the call log already cached its name and
                             // photo, so skip the contacts query and number lookup.
@@ -91,17 +104,16 @@ class CallLogRepository(private val context: Context) {
                                 name = cachedName,
                                 inContacts = true,
                                 isSpam = blocked,
-                                spamCategory = if (blocked) "Blocked by you" else null,
+                                spamCategory = if (blocked) context.getString(R.string.caller_blocked_by_you) else null,
                                 source = if (blocked) "blocklist" else "contacts"
                             )
                         } else {
-                            callerIdRepo.lookupCallerInfo(number)
+                            callerIdRepo.lookupCallerInfo(number, contactsByKey)
                         }
                     }
 
-                    val recording = recordings.firstOrNull { item ->
-                        item.phoneNumber.filter(Char::isDigit) == digits &&
-                            abs(item.timestamp - dateMs) < 60_000
+                    val recording = recordings[digits]?.firstOrNull { item ->
+                        abs(item.timestamp - dateMs) < 60_000
                     }
 
                     list.add(
@@ -119,6 +131,7 @@ class CallLogRepository(private val context: Context) {
                             numberLabel = info.numberLabel
                         )
                     )
+                    if (list.size == firstPageSize) onFirstPage?.invoke(list.toList())
                 }
             }
         } catch (e: Exception) {
@@ -128,5 +141,23 @@ class CallLogRepository(private val context: Context) {
         lastResult = list
         Log.d("CallLogRepository", "Loaded ${list.size} calls in ${SystemClock.elapsedRealtime() - startedAt} ms")
         return list
+    }
+
+    /** Deletes these call-log rows and drops them from [lastResult]. Call off the main thread. */
+    fun deleteCalls(ids: Collection<String>): Int {
+        if (ids.isEmpty()) return 0
+        val deleted = try {
+            context.contentResolver.delete(
+                CallLog.Calls.CONTENT_URI,
+                "${CallLog.Calls._ID} IN (${ids.joinToString(",") { "?" }})",
+                ids.toTypedArray()
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            0
+        }
+        val gone = ids.toHashSet()
+        lastResult = lastResult.filterNot { it.id in gone }
+        return deleted
     }
 }

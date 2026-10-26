@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Call notes (post-call prompt, Recents, incoming-call screen). -->
+<resources>
+    <string name="call_note_channel">Call notes</string>
+    <string name="call_note_prompt_title">Add a note</string>
+    <string name="call_note_prompt_body">Call with %1$s ended</string>
+    <string name="call_note_add_action">Add note</string>
+    <string name="call_note_add">ADD NOTE</string>
+    <string name="call_note_edit">EDIT</string>
+    <string name="call_note_delete">DELETE</string>
+    <string name="call_note_save">SAVE</string>
+    <string name="call_note_cancel">CANCEL</string>
+    <string name="call_note_dismiss">Dismiss</string>
+    <string name="call_note_hint">What was this call about?</string>
+    <string name="call_note_dialog_title">Call note</string>
+    <string name="call_note_last">Last note: %1$s</string>
+    <string name="call_note_has_note">Has a note</string>
+</resources>

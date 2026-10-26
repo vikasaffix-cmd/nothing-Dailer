@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_vm_transcribe">वॉइसमेल का ट्रांसक्रिप्ट बनाएं</string>
+    <string name="settings_vm_transcribe_summary">हर वॉइसमेल का लिखित रूप और एक पंक्ति का सारांश, फ़ोन पर ही बनता है। कुछ भी अपलोड नहीं होता। Android 13 या उससे नया और अंग्रेज़ी, हिन्दी या मराठी का ऑफ़लाइन स्पीच पैक ज़रूरी है; हिन्दी और मराठी में सटीकता कम होती है।</string>
+
+    <string name="vm_ai_search_hint">नाम, नंबर या शब्द खोजें</string>
+    <string name="vm_ai_close_search">खोज बंद करें</string>
+    <string name="vm_ai_no_matches">कोई वॉइसमेल नहीं मिला।</string>
+
+    <string name="vm_ai_transcribing">ट्रांसक्रिप्ट बन रहा है…</string>
+    <string name="vm_ai_transcript">ट्रांसक्रिप्ट</string>
+    <string name="vm_ai_not_transcribed">अभी ट्रांसक्रिप्ट नहीं बना है।</string>
+    <string name="vm_ai_transcribe">ट्रांसक्रिप्ट बनाएं</string>
+    <string name="vm_ai_retry">फिर से कोशिश करें</string>
+    <string name="vm_ai_language_auto">भाषा अपने-आप पहचानें</string>
+    <string name="vm_ai_add_reminder">रिमाइंडर जोड़ें</string>
+    <string name="vm_ai_reminder_body">%1$s का वॉइसमेल:\n%2$s</string>
+
+    <string name="vm_ai_no_speech">इस संदेश में कोई आवाज़ नहीं मिली।</string>
+    <string name="vm_ai_failed">इस संदेश का ट्रांसक्रिप्ट नहीं बन सका।</string>
+    <string name="vm_ai_unsupported">ट्रांसक्रिप्ट के लिए ऑन-डिवाइस स्पीच रिकग्निशन वाला Android 13 या उससे नया चाहिए, जो इस फ़ोन में नहीं है।</string>
+    <string name="vm_ai_no_language_pack">%1$s का ऑफ़लाइन स्पीच पैक अभी इस फ़ोन पर नहीं है। डाउनलोड शुरू हो सकता है; बाद में फिर से कोशिश करें, या कोई दूसरी भाषा चुनें।</string>
+    <string name="vm_ai_needs_mic">Android के स्पीच इंजन को सेव की गई फ़ाइलों के लिए भी माइक्रोफ़ोन की अनुमति चाहिए। कुछ भी रिकॉर्ड नहीं होता।</string>
+    <string name="vm_ai_allow">अनुमति दें</string>
+</resources>

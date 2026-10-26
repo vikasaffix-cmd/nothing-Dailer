@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_quiet_hours_summary">रात में कॉल साइलेंट करें; पसंदीदा, VIP और दोबारा कॉल करने वाले फिर भी बजेंगे</string>
+    <string name="settings_reminders_summary">शेड्यूल की गई कॉल और “वापस कॉल करें” रिमाइंडर</string>
+
+    <string name="quiet_hours_title">शांत समय</string>
+    <string name="quiet_hours_help">शांत समय में बाकी कॉल साइलेंट होती हैं, अस्वीकार नहीं: वे मिस्ड कॉल के रूप में दिखती हैं जिन्हें आप वापस कर सकते हैं। आपातकालीन कॉल और आपातकालीन नंबर डायल करने के बाद आने वाली कॉल हमेशा बजती हैं।</string>
+    <string name="quiet_hours_needs_android_10">कॉल साइलेंट करने के लिए Android 10 या नया चाहिए। इस फ़ोन पर कॉल बजती रहेंगी।</string>
+    <string name="quiet_hours_when">कब</string>
+    <string name="quiet_hours_schedule">तय समय पर</string>
+    <string name="quiet_hours_follow_dnd">जब भी \'परेशान न करें\' चालू हो</string>
+    <string name="quiet_hours_dnd_note">आपके फ़ोन की \'परेशान न करें\' सेटिंग भी लागू रहती है। पसंदीदा और दोबारा कॉल करने वालों को बजने देने के लिए, सिस्टम की \'परेशान न करें\' सेटिंग में भी तारांकित संपर्कों और दोबारा कॉल करने वालों को अनुमति दें।</string>
+    <string name="quiet_hours_from">से</string>
+    <string name="quiet_hours_to">तक</string>
+    <string name="quiet_hours_days_note">चुने गए दिनों में शुरू होने वाली रातें</string>
+    <string name="quiet_hours_who_rings">किसकी कॉल बजेगी</string>
+    <string name="quiet_hours_favourites">पसंदीदा</string>
+    <string name="quiet_hours_favourites_summary">तारांकित संपर्कों की कॉल सामान्य रूप से बजती है</string>
+    <string name="quiet_hours_repeat">दोबारा कॉल करने वाले</string>
+    <string name="quiet_hours_repeat_summary">एक ही नंबर से %1$d मिनट के अंदर दूसरी कॉल बजेगी, अगर कुछ ज़रूरी हो</string>
+    <string name="quiet_hours_shorter">कम</string>
+    <string name="quiet_hours_longer">ज़्यादा</string>
+    <string name="quiet_hours_minutes">%1$d मिनट</string>
+    <string name="quiet_hours_vip">VIP सूची</string>
+    <string name="quiet_hours_vip_summary">ये नंबर हमेशा बजते हैं, भले ही पसंदीदा न हों</string>
+    <string name="quiet_hours_add_contact">संपर्क जोड़ें</string>
+    <string name="quiet_hours_add_number">नंबर जोड़ें</string>
+    <string name="quiet_hours_off">बंद</string>
+    <string name="quiet_hours_on_now">अभी चालू: कॉल साइलेंट हो रही हैं</string>
+    <string name="quiet_hours_waiting_dnd">\'परेशान न करें\' के साथ चालू होगा</string>
+    <string name="quiet_hours_starts_at">%1$s पर शुरू</string>
+
+    <string name="reminders_title">रिमाइंडर</string>
+    <string name="reminders_help">शेड्यूल की गई कॉल और किसी को वापस कॉल करने के रिमाइंडर। बदलने के लिए टैप करें।</string>
+    <string name="reminders_inexact_note">रिमाइंडर कुछ मिनट देर से आ सकते हैं। सही समय के लिए \"अलार्म और रिमाइंडर\" की अनुमति दें।</string>
+    <string name="reminders_allow_exact">सही समय की अनुमति दें</string>
+    <string name="reminders_empty">कोई रिमाइंडर नहीं। मिस्ड कॉल, हाल की कॉल या किसी संपर्क पर \"मुझे याद दिलाएं\" का इस्तेमाल करें, या कॉल की योजना के लिए \"कॉल शेड्यूल करें\"।</string>
+    <string name="reminders_cancel">रिमाइंडर रद्द करें</string>
+    <string name="reminders_channel">वापस कॉल के रिमाइंडर</string>
+    <string name="reminder_call_back_title">%1$s को वापस कॉल करें</string>
+    <string name="reminder_body">%1$s का रिमाइंडर</string>
+    <string name="reminder_body_with_number">%1$s · %2$s का रिमाइंडर</string>
+    <string name="reminder_snooze">15 मिनट बाद</string>
+    <string name="reminder_set_for">रिमाइंडर %1$s के लिए सेट</string>
+    <string name="reminder_may_be_late">यह कुछ मिनट देर से आ सकता है।</string>
+    <string name="reminder_tomorrow_at">कल %1$s</string>
+    <string name="reminder_in_15_min">15 मिनट में</string>
+    <string name="reminder_in_1_hour">1 घंटे में</string>
+    <string name="reminder_tonight">आज रात, %1$s</string>
+    <string name="reminder_morning">सुबह, %1$s</string>
+    <string name="reminder_remind_me">मुझे याद दिलाएं</string>
+    <string name="reminder_remind_to_call">कॉल करना याद दिलाएं</string>
+    <string name="reminder_pick_time">तारीख और समय चुनें</string>
+    <string name="reminder_next">आगे</string>
+    <string name="reminder_set">सेट करें</string>
+    <string name="reminder_time_passed">आगे का कोई समय चुनें</string>
+    <string name="reminder_decline_and_remind">अस्वीकार करें और वापस कॉल करना याद दिलाएं</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flip_silence_title">पलटकर साइलेंट करें</string>
+    <string name="flip_silence_summary">घंटी बजते समय फ़ोन को उल्टा रखें, घंटी बंद हो जाएगी। कॉल अस्वीकार नहीं होगी।</string>
+
+    <string name="caller_card_birthday">🎂 आज जन्मदिन है</string>
+    <string name="caller_card_anniversary">💍 आज सालगिरह है</string>
+    <string name="caller_card_reminder">वापस कॉल करने का रिमाइंडर: %1$s</string>
+    <string name="caller_card_last_call">पिछली कॉल: %1$s</string>
+    <string name="caller_card_today">आज</string>
+    <string name="caller_card_yesterday">कल</string>
+    <string name="caller_card_today_at">आज %1$s</string>
+    <string name="caller_card_tomorrow_at">कल %1$s</string>
+    <string name="caller_card_seconds">%1$d सेकंड</string>
+    <string name="caller_card_minutes">%1$d मिनट</string>
+    <string name="caller_card_incoming">आने वाली</string>
+    <string name="caller_card_outgoing">जाने वाली</string>
+    <string name="caller_card_missed">मिस्ड</string>
+    <string name="caller_card_declined">अस्वीकार की गई</string>
+    <plurals name="caller_card_missed_week">
+        <item quantity="one">इस हफ़्ते %1$d मिस्ड कॉल</item>
+        <item quantity="other">इस हफ़्ते %1$d मिस्ड कॉल</item>
+    </plurals>
+</resources>

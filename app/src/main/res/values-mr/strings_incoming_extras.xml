@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flip_silence_title">उलटा ठेवून सायलेंट करा</string>
+    <string name="flip_silence_summary">रिंग वाजत असताना फोन उलटा ठेवा, रिंग बंद होईल. कॉल नाकारला जाणार नाही.</string>
+
+    <string name="caller_card_birthday">🎂 आज वाढदिवस आहे</string>
+    <string name="caller_card_anniversary">💍 आज लग्नाचा वाढदिवस आहे</string>
+    <string name="caller_card_reminder">परत कॉल करण्याची आठवण: %1$s</string>
+    <string name="caller_card_last_call">मागचा कॉल: %1$s</string>
+    <string name="caller_card_today">आज</string>
+    <string name="caller_card_yesterday">काल</string>
+    <string name="caller_card_today_at">आज %1$s</string>
+    <string name="caller_card_tomorrow_at">उद्या %1$s</string>
+    <string name="caller_card_seconds">%1$d सेकंद</string>
+    <string name="caller_card_minutes">%1$d मिनिटे</string>
+    <string name="caller_card_incoming">येणारा</string>
+    <string name="caller_card_outgoing">जाणारा</string>
+    <string name="caller_card_missed">मिस्ड</string>
+    <string name="caller_card_declined">नाकारलेला</string>
+    <plurals name="caller_card_missed_week">
+        <item quantity="one">या आठवड्यात %1$d मिस्ड कॉल</item>
+        <item quantity="other">या आठवड्यात %1$d मिस्ड कॉल</item>
+    </plurals>
+</resources>

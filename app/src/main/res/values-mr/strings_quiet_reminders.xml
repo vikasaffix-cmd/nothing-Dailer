@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_quiet_hours_summary">रात्री कॉल शांत करा; आवडते, VIP आणि पुन्हा कॉल करणारे तरीही वाजतील</string>
+    <string name="settings_reminders_summary">शेड्यूल केलेले कॉल आणि “परत कॉल करा” स्मरणपत्रे</string>
+
+    <string name="quiet_hours_title">शांत वेळ</string>
+    <string name="quiet_hours_help">शांत वेळेत इतर कॉल शांत होतात, नाकारले जात नाहीत: ते मिस्ड कॉल म्हणून दिसतात आणि तुम्ही परत कॉल करू शकता. आपत्कालीन कॉल आणि आपत्कालीन नंबर डायल केल्यानंतर येणारे कॉल नेहमी वाजतात.</string>
+    <string name="quiet_hours_needs_android_10">कॉल शांत करण्यासाठी Android 10 किंवा नवीन आवश्यक आहे. या फोनवर कॉल वाजत राहतील.</string>
+    <string name="quiet_hours_when">केव्हा</string>
+    <string name="quiet_hours_schedule">ठरलेल्या वेळी</string>
+    <string name="quiet_hours_follow_dnd">जेव्हा \'व्यत्यय आणू नका\' सुरू असेल</string>
+    <string name="quiet_hours_dnd_note">तुमच्या फोनची \'व्यत्यय आणू नका\' सेटिंग देखील लागू राहते. आवडते आणि पुन्हा कॉल करणारे वाजावेत म्हणून, सिस्टमच्या \'व्यत्यय आणू नका\' सेटिंगमध्येही तारांकित संपर्क आणि पुन्हा कॉल करणाऱ्यांना परवानगी द्या.</string>
+    <string name="quiet_hours_from">पासून</string>
+    <string name="quiet_hours_to">पर्यंत</string>
+    <string name="quiet_hours_days_note">निवडलेल्या दिवशी सुरू होणाऱ्या रात्री</string>
+    <string name="quiet_hours_who_rings">कोणाचे कॉल वाजतील</string>
+    <string name="quiet_hours_favourites">आवडते</string>
+    <string name="quiet_hours_favourites_summary">तारांकित संपर्कांचे कॉल नेहमीप्रमाणे वाजतात</string>
+    <string name="quiet_hours_repeat">पुन्हा कॉल करणारे</string>
+    <string name="quiet_hours_repeat_summary">एकाच नंबरवरून %1$d मिनिटांत दुसरा कॉल आल्यास तो वाजेल, काही तातडीचे असल्यास</string>
+    <string name="quiet_hours_shorter">कमी</string>
+    <string name="quiet_hours_longer">जास्त</string>
+    <string name="quiet_hours_minutes">%1$d मिनिटे</string>
+    <string name="quiet_hours_vip">VIP यादी</string>
+    <string name="quiet_hours_vip_summary">हे नंबर नेहमी वाजतात, आवडते नसले तरी</string>
+    <string name="quiet_hours_add_contact">संपर्क जोडा</string>
+    <string name="quiet_hours_add_number">नंबर जोडा</string>
+    <string name="quiet_hours_off">बंद</string>
+    <string name="quiet_hours_on_now">आता सुरू: कॉल शांत केले जात आहेत</string>
+    <string name="quiet_hours_waiting_dnd">\'व्यत्यय आणू नका\' सोबत सुरू होईल</string>
+    <string name="quiet_hours_starts_at">%1$s ला सुरू</string>
+
+    <string name="reminders_title">स्मरणपत्रे</string>
+    <string name="reminders_help">शेड्यूल केलेले कॉल आणि एखाद्याला परत कॉल करण्याची स्मरणपत्रे. बदलण्यासाठी टॅप करा.</string>
+    <string name="reminders_inexact_note">स्मरणपत्रे काही मिनिटे उशिरा येऊ शकतात. अचूक वेळेसाठी \"अलार्म आणि स्मरणपत्रे\" ला परवानगी द्या.</string>
+    <string name="reminders_allow_exact">अचूक वेळेला परवानगी द्या</string>
+    <string name="reminders_empty">कोणतेही स्मरणपत्र नाही. मिस्ड कॉल, अलीकडील कॉल किंवा संपर्कावर \"मला आठवण करा\" वापरा, किंवा कॉलचे नियोजन करण्यासाठी \"कॉल शेड्यूल करा\".</string>
+    <string name="reminders_cancel">स्मरणपत्र रद्द करा</string>
+    <string name="reminders_channel">परत कॉलची स्मरणपत्रे</string>
+    <string name="reminder_call_back_title">%1$s ला परत कॉल करा</string>
+    <string name="reminder_body">%1$s चे स्मरणपत्र</string>
+    <string name="reminder_body_with_number">%1$s · %2$s चे स्मरणपत्र</string>
+    <string name="reminder_snooze">15 मिनिटांनी</string>
+    <string name="reminder_set_for">स्मरणपत्र %1$s साठी लावले</string>
+    <string name="reminder_may_be_late">ते काही मिनिटे उशिरा येऊ शकते.</string>
+    <string name="reminder_tomorrow_at">उद्या %1$s</string>
+    <string name="reminder_in_15_min">15 मिनिटांत</string>
+    <string name="reminder_in_1_hour">1 तासात</string>
+    <string name="reminder_tonight">आज रात्री, %1$s</string>
+    <string name="reminder_morning">सकाळी, %1$s</string>
+    <string name="reminder_remind_me">मला आठवण करा</string>
+    <string name="reminder_remind_to_call">कॉल करण्याची आठवण करा</string>
+    <string name="reminder_pick_time">तारीख आणि वेळ निवडा</string>
+    <string name="reminder_next">पुढे</string>
+    <string name="reminder_set">लावा</string>
+    <string name="reminder_time_passed">पुढची वेळ निवडा</string>
+    <string name="reminder_decline_and_remind">नाकारा आणि परत कॉल करण्याची आठवण करा</string>
+</resources>

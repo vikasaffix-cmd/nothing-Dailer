@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="call_pill_title">कॉल पिल</string>
+    <string name="call_pill_summary">इतर ॲप वापरताना येणारे कॉल वर एका छोट्या पिलमध्ये दाखवा</string>
+    <string name="call_pill_needs_permission">“इतर ॲप्सवर दाखवा” परवानगी हवी. परवानगी देण्यासाठी टॅप करा.</string>
+
+    <string name="call_pill_remind_me">मला आठवण करून द्या</string>
+    <string name="call_pill_open">कॉल स्क्रीन उघडा</string>
+    <string name="call_pill_more">उत्तरांसाठी खाली स्वाइप करा</string>
+
+    <string name="ongoing_calls_channel">चालू कॉल</string>
+    <string name="ongoing_call">चालू कॉल</string>
+    <string name="ongoing_call_recording">चालू कॉल · रेकॉर्डिंग</string>
+    <string name="hang_up">कॉल बंद करा</string>
+</resources>

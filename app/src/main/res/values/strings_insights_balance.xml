@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Call insights (ui/insights) and Balance & plan USSD shortcuts (ui/balance) -->
+<resources>
+    <!-- Insights -->
+    <string name="insights_title">Insights</string>
+    <string name="insights_open">Call insights</string>
+    <string name="settings_insights_summary">Talk time, top contacts and busiest hours</string>
+    <string name="insights_range_week">This week</string>
+    <string name="insights_range_month">This month</string>
+    <string name="insights_range_custom">Custom</string>
+    <string name="insights_talk_time">Talk time</string>
+    <string name="insights_calls_in">In</string>
+    <string name="insights_calls_out">Out</string>
+    <string name="insights_calls_missed">Missed</string>
+    <string name="insights_missed_rate">Missed-call rate</string>
+    <string name="insights_missed_rate_value">%1$d%% of incoming calls missed</string>
+    <string name="insights_per_sim">Talk time per SIM</string>
+    <string name="insights_other_sim">Other</string>
+    <string name="insights_top_contacts">Top contacts</string>
+    <string name="insights_by_talk">Talk time</string>
+    <string name="insights_by_count">Calls</string>
+    <string name="insights_busiest_hours">Busiest hours</string>
+    <string name="insights_busiest_at">Busiest around %1$s</string>
+    <string name="insights_longest">Longest calls</string>
+    <string name="insights_empty">No calls in these dates</string>
+    <string name="insights_open_recents">Tap a contact to see their calls in Recents</string>
+    <string name="insights_pick_dates">Pick dates</string>
+    <string name="insights_apply">Apply</string>
+    <plurals name="insights_calls_count">
+        <item quantity="one">%d call</item>
+        <item quantity="other">%d calls</item>
+    </plurals>
+
+    <!-- Balance & plan -->
+    <string name="balance_title">Balance &amp; plan</string>
+    <string name="settings_balance_summary">Balance, validity and data from your operator, per SIM</string>
+    <string name="balance_no_sims">No active SIM found</string>
+    <string name="balance_unconfirmed">Unconfirmed</string>
+    <string name="balance_unconfirmed_note">Codes marked unconfirmed come from recent guides, not the operator\'s own site. If one doesn\'t work, edit it.</string>
+    <string name="balance_one_tap">One tap</string>
+    <string name="balance_asks_first">Asks first</string>
+    <string name="balance_confirm_title">Send %1$s?</string>
+    <string name="balance_confirm_menu">This opens the operator\'s menu. Its options can buy packs or change your plan, so check each step.</string>
+    <string name="balance_confirm_action">This code may change your plan or spend your balance. Send it only if you\'re sure.</string>
+    <string name="balance_send">Send</string>
+    <string name="balance_dial">Dial</string>
+    <string name="balance_dial_hint">Opens the code on the keypad for you to send</string>
+    <string name="balance_sending">Asking %1$s…</string>
+    <string name="balance_reply_from">Reply from %1$s</string>
+    <string name="balance_failed">The network didn\'t answer this code here. Try Dial instead.</string>
+    <string name="balance_timeout">No reply yet. Try Dial instead.</string>
+    <string name="balance_no_permission">Allow the phone calls permission to send codes.</string>
+    <string name="balance_menu_hint">This is a menu. Type an option to send it as one code.</string>
+    <string name="balance_option">Option</string>
+    <string name="balance_add">Add code</string>
+    <string name="balance_edit">Edit code</string>
+    <string name="balance_name">Name</string>
+    <string name="balance_code">Code</string>
+    <string name="balance_code_invalid">A code starts with * or # and ends with #</string>
+    <string name="balance_info_only">Only shows info (send with one tap)</string>
+    <string name="balance_info_only_help">Leave this off for anything that buys, recharges or changes a plan.</string>
+    <string name="balance_save">Save</string>
+    <string name="balance_close">Close</string>
+    <string name="balance_reset">Restore built-in codes</string>
+    <string name="balance_code_main">Balance &amp; validity</string>
+    <string name="balance_code_number">My number</string>
+    <string name="balance_code_data">Data balance</string>
+    <string name="balance_code_plan">Plan &amp; validity</string>
+    <string name="balance_code_offers">Offers menu</string>
+</resources>

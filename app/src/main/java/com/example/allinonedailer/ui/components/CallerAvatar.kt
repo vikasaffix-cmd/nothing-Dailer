@@ -1,7 +1,12 @@
 package com.example.allinonedailer.ui.components
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.database.ContentObserver
 import android.net.Uri
+import android.provider.ContactsContract
+import android.util.LruCache
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,6 +29,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -35,20 +41,90 @@ import kotlinx.coroutines.withContext
 /** Black-and-white filter used for every caller photo. */
 val GrayscaleFilter: ColorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
 
-/** Loads a contact photo off the main thread; null while loading or if there is none. */
-@Composable
-fun rememberContactPhoto(photoUri: String?): ImageBitmap? {
-    val context = LocalContext.current
-    val photo by produceState<ImageBitmap?>(initialValue = null, photoUri) {
-        value = if (photoUri == null) null else withContext(Dispatchers.IO) {
-            try {
-                context.contentResolver.openInputStream(Uri.parse(photoUri))?.use {
-                    BitmapFactory.decodeStream(it)?.asImageBitmap()
+/**
+ * Decoded contact photos, shared by every list so scrolling back doesn't decode
+ * again. Keyed by URI and target size; bounded by bytes (1/16 of the heap).
+ */
+private object PhotoCache {
+    private val cache = object : LruCache<String, ImageBitmap>(
+        (Runtime.getRuntime().maxMemory() / 16).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+    ) {
+        override fun sizeOf(key: String, value: ImageBitmap) = value.width * value.height * 4
+    }
+
+    // Uris that had no readable photo, so they aren't retried on every bind.
+    private val missing = LruCache<String, Boolean>(512)
+
+    // A contact's photo URI stays the same when the photo is edited, so any
+    // contacts change drops what is cached.
+    @Volatile
+    private var observing = false
+
+    private fun observe(context: Context) {
+        if (observing) return
+        observing = true
+        try {
+            context.applicationContext.contentResolver.registerContentObserver(
+                ContactsContract.AUTHORITY_URI,
+                true,
+                object : ContentObserver(null) {
+                    override fun onChange(selfChange: Boolean) {
+                        cache.evictAll()
+                        missing.evictAll()
+                    }
                 }
-            } catch (e: Exception) {
-                null
-            }
+            )
+        } catch (e: Exception) {
+            observing = false
         }
+    }
+
+    fun get(key: String): ImageBitmap? = cache.get(key)
+
+    fun isMissing(key: String) = missing.get(key) != null
+
+    fun load(context: Context, photoUri: String, key: String, maxPx: Int): ImageBitmap? {
+        observe(context)
+        val bitmap = try {
+            decodeSampled(context, Uri.parse(photoUri), maxPx)
+        } catch (e: Exception) {
+            null
+        }
+        if (bitmap == null) {
+            missing.put(key, true)
+            return null
+        }
+        return bitmap.asImageBitmap().also { cache.put(key, it) }
+    }
+
+    /** Decodes at the smallest power-of-two scale still at least [maxPx] on the short side. */
+    private fun decodeSampled(context: Context, uri: Uri, maxPx: Int): Bitmap? {
+        val resolver = context.contentResolver
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, bounds) } ?: return null
+        var sample = 1
+        val shortSide = minOf(bounds.outWidth, bounds.outHeight)
+        while (shortSide > 0 && shortSide / (sample * 2) >= maxPx) sample *= 2
+        val options = BitmapFactory.Options().apply { inSampleSize = sample }
+        return resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, options) }
+    }
+}
+
+/**
+ * Loads a contact photo off the main thread, downsampled to about [maxSize]
+ * and cached; null while loading or if there is none.
+ */
+@Composable
+fun rememberContactPhoto(photoUri: String?, maxSize: Dp = 96.dp): ImageBitmap? {
+    val context = LocalContext.current
+    val maxPx = with(LocalDensity.current) { maxSize.roundToPx() }.coerceAtLeast(1)
+    val key = photoUri?.let { "$it@$maxPx" }
+    // A cached photo shows on the first frame, with no placeholder flash while scrolling.
+    val photo by produceState(initialValue = key?.let(PhotoCache::get), key) {
+        val cached = key?.let(PhotoCache::get)
+        value = cached
+        if (photoUri == null || key == null || cached != null || PhotoCache.isMissing(key)) return@produceState
+        value = withContext(Dispatchers.IO) { PhotoCache.load(context, photoUri, key, maxPx) }
     }
     return photo
 }
@@ -68,7 +144,7 @@ fun CallerAvatar(
     photoUri: String? = null,
     pill: Boolean = false
 ) {
-    val photo = rememberContactPhoto(photoUri)
+    val photo = rememberContactPhoto(photoUri, maxSize = if (pill) size * 1.45f else size)
     val shape = if (pill) RoundedCornerShape(50) else CircleShape
     val width = if (pill) size * 1.45f else size
     val ring = if (spam) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.outline

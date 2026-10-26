@@ -10,3 +10,55 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# ---- Gson / Retrofit models -------------------------------------------------
+# Gson reads and writes fields by name through reflection, so R8 must not
+# rename or strip them.
+# Number lookup response (data/NumberLookupApi.kt), parsed by Retrofit + Gson.
+-keep class com.example.allinonedailer.data.RemoteLookupResponse { *; }
+# Recordings list stored as JSON in SharedPreferences (data/RecordingRepository.kt).
+# Renaming these fields would also make lists saved by older builds unreadable.
+-keep class com.example.allinonedailer.data.RecordingItem { *; }
+
+# Generic signatures are needed for TypeToken<List<RecordingItem>> and for
+# Retrofit's suspend functions.
+-keepattributes Signature, InnerClasses, EnclosingMethod
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations, AnnotationDefault
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep,allowobfuscation interface com.example.allinonedailer.data.NumberLookupApi
+
+# ---- libphonenumber ---------------------------------------------------------
+# Metadata, geocoder and carrier data are Java resources loaded by path at
+# runtime; keep the loader classes in their original packages so the relative
+# resource paths still resolve.
+-keep class com.google.i18n.phonenumbers.** { *; }
+-dontwarn com.google.i18n.phonenumbers.**
+
+# ---- Home-screen widget (Glance + WorkManager) ------------------------------
+# Glance and WorkManager ship their own consumer rules; these keep our classes
+# that the system or WorkManager create by name from the manifest / database.
+-keep class com.example.allinonedailer.widget.DialerWidgetReceiver { <init>(); }
+-keep class com.example.allinonedailer.widget.* extends androidx.work.ListenableWorker {
+    <init>(android.content.Context, androidx.work.WorkerParameters);
+}
+
+# ---- Voicemail transcripts (data/VoicemailTranscription.kt) -----------------
+# WorkManager creates the worker by class name stored in its database.
+-keep class com.example.allinonedailer.data.VoicemailTranscribeWorker {
+    <init>(android.content.Context, androidx.work.WorkerParameters);
+}
+
+# ---- Room (used by WorkManager) ---------------------------------------------
+# Room creates the generated *_Impl database class by reflection
+# (e.g. androidx.work.impl.WorkDatabase_Impl). Without this the release build
+# crashes on startup in WorkManagerInitializer with NoSuchMethodException.
+-keep class * extends androidx.room.RoomDatabase { <init>(); }
+
+# ---- Nothing Glyph Matrix SDK (service/GlyphController.kt) ------------------
+# The SDK talks to Nothing's Glyph service over Binder; keep it as shipped.
+-keep class com.nothing.ketchum.** { *; }
+-dontwarn com.nothing.ketchum.**
+-dontwarn com.nothinglondon.**

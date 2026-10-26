@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_title">बैकअप और रीस्टोर</string>
+    <string name="settings_backup_summary">ब्लॉक, नोट, स्पीड डायल और सेटिंग फ़ाइल में सेव करें या वापस लाएँ</string>
+    <string name="backup_help">NoDialer जो कुछ खुद सहेजता है, वह सब एक फ़ाइल में जाता है, ताकि ऐप दोबारा इंस्टॉल करने या नए फ़ोन पर भी बना रहे। संपर्क और कॉल लॉग आपके फ़ोन और Google खाते में रहते हैं, इसलिए वे इसमें नहीं हैं।</string>
+
+    <string name="backup_export_title">एक्सपोर्ट</string>
+    <string name="backup_export_includes">ब्लॉक किए गए नंबर और नियम, स्पैम रिपोर्ट, सेव किए गए कॉलर नाम, स्पीड डायल, कॉल नोट, डिस्प्ले फ़ॉन्ट, भाषा, और वाइब्रेशन, रिकॉर्डिंग व वॉइसमेल सेटिंग।</string>
+    <string name="backup_include_recordings">कॉल रिकॉर्डिंग शामिल करें</string>
+    <string name="backup_include_recordings_summary">%1$d फ़ाइलें, %2$s। इससे बैकअप काफ़ी बड़ा हो जाता है।</string>
+    <string name="backup_include_recordings_none">इस फ़ोन पर कोई रिकॉर्डिंग नहीं है</string>
+    <string name="backup_include_secrets">लुकअप URL और कुंजियाँ शामिल करें</string>
+    <string name="backup_include_secrets_summary">बंद: कॉलर-ID लुकअप पता इसी फ़ोन पर रहता है। इसे तभी चालू करें जब आप फ़ाइल किसी निजी जगह रखें।</string>
+    <string name="backup_export_button">बैकअप एक्सपोर्ट करें</string>
+    <string name="backup_saved">बैकअप सेव हुआ: %1$s</string>
+    <string name="backup_saved_empty">बैकअप सेव हुआ</string>
+    <string name="backup_failed">बैकअप सेव नहीं हो सका</string>
+
+    <string name="backup_import_title">रीस्टोर</string>
+    <string name="backup_import_summary">NoDialer की बैकअप फ़ाइल (.zip या .json) चुनें। कुछ भी बदलने से पहले आप देख पाएँगे कि उसमें क्या है।</string>
+    <string name="backup_import_button">बैकअप इंपोर्ट करें</string>
+
+    <string name="backup_old_app_title">पुराने ऐप से इंपोर्ट करें</string>
+    <string name="backup_old_app_body">पहले वाले टेस्ट बिल्ड (com.example.allinonedailer) में एक्सपोर्ट नहीं है। उसका डेटा लाने के लिए: Android Studio से एक्सपोर्ट बिल्ड उसी के ऊपर इंस्टॉल करें (gradlew installDebug -PlegacyPackage, इससे उसका डेटा बना रहता है), उसे खोलें और सेटिंग › बैकअप और रीस्टोर › बैकअप एक्सपोर्ट करें। फिर वह फ़ाइल यहाँ इंपोर्ट करें। उसके बाद पुराना ऐप अनइंस्टॉल कर सकते हैं।</string>
+    <string name="backup_old_app_button">पुराने ऐप का बैकअप इंपोर्ट करें</string>
+
+    <string name="backup_auto_title">अपने-आप बैकअप</string>
+    <string name="backup_auto_body">सेटिंग, नोट और ब्लॉक आपके फ़ोन के Google बैकअप में भी जाते हैं (जब वह चालू हो और स्क्रीन लॉक लगा हो), और “ऐप और डेटा कॉपी करें” से नए फ़ोन पर भी आ जाते हैं। रिकॉर्डिंग नहीं आतीं।</string>
+
+    <string name="backup_error_not_backup">यह NoDialer का बैकअप नहीं है</string>
+    <string name="backup_error_too_new">यह बैकअप NoDialer के नए वर्ज़न का है (फ़ॉर्मैट %1$d)। ऐप अपडेट करें, फिर दोबारा कोशिश करें।</string>
+    <string name="backup_error_corrupt">यह बैकअप फ़ाइल खराब है</string>
+    <string name="backup_error_read">फ़ाइल पढ़ी नहीं जा सकी</string>
+
+    <string name="backup_dialog_title">यह बैकअप रीस्टोर करें?</string>
+    <string name="backup_dialog_from">%1$s को बना</string>
+    <string name="backup_dialog_from_old">पुराने ऐप से (com.example.allinonedailer)</string>
+    <string name="backup_dialog_empty">इस बैकअप में रीस्टोर करने को कुछ नहीं है।</string>
+    <string name="backup_mode_merge">मिलाएँ</string>
+    <string name="backup_mode_merge_summary">इस फ़ोन पर जो है वह रखें और जो नहीं है वह जोड़ें</string>
+    <string name="backup_mode_replace">बदलें</string>
+    <string name="backup_mode_replace_summary">इस फ़ोन के ब्लॉक, नोट और सेटिंग की जगह बैकअप वाले रखें</string>
+    <string name="backup_restore_recordings">रिकॉर्डिंग रीस्टोर करें</string>
+    <string name="backup_secrets_note">इसमें कॉलर-ID लुकअप पता शामिल है।</string>
+    <string name="backup_voicemail_note">वॉइसमेल: बाद में फ़ोल्डर दोबारा चुनें। फ़ोल्डर की अनुमति साथ नहीं आती।</string>
+    <string name="backup_restore">रीस्टोर करें</string>
+    <string name="backup_restored">बैकअप रीस्टोर हुआ</string>
+    <string name="backup_restore_failed">बैकअप रीस्टोर नहीं हो सका</string>
+
+    <string name="backup_has_font">अपना डिस्प्ले फ़ॉन्ट</string>
+    <string name="backup_language">भाषा: %1$s</string>
+    <plurals name="backup_count_blocked">
+        <item quantity="one">%d ब्लॉक किया गया नंबर</item>
+        <item quantity="other">%d ब्लॉक किए गए नंबर</item>
+    </plurals>
+    <plurals name="backup_count_rules">
+        <item quantity="one">%d ब्लॉक नियम</item>
+        <item quantity="other">%d ब्लॉक नियम</item>
+    </plurals>
+    <plurals name="backup_count_spam">
+        <item quantity="one">%d स्पैम रिपोर्ट</item>
+        <item quantity="other">%d स्पैम रिपोर्ट</item>
+    </plurals>
+    <plurals name="backup_count_notes">
+        <item quantity="one">%d कॉल नोट</item>
+        <item quantity="other">%d कॉल नोट</item>
+    </plurals>
+    <plurals name="backup_count_speed_dial">
+        <item quantity="one">%d स्पीड-डायल कुंजी</item>
+        <item quantity="other">%d स्पीड-डायल कुंजियाँ</item>
+    </plurals>
+    <plurals name="backup_count_names">
+        <item quantity="one">%d सेव किया गया कॉलर नाम</item>
+        <item quantity="other">%d सेव किए गए कॉलर नाम</item>
+    </plurals>
+    <plurals name="backup_count_recordings_index">
+        <item quantity="one">सूची में %d रिकॉर्डिंग</item>
+        <item quantity="other">सूची में %d रिकॉर्डिंग</item>
+    </plurals>
+    <plurals name="backup_count_recording_files">
+        <item quantity="one">%d रिकॉर्डिंग फ़ाइल</item>
+        <item quantity="other">%d रिकॉर्डिंग फ़ाइलें</item>
+    </plurals>
+</resources>

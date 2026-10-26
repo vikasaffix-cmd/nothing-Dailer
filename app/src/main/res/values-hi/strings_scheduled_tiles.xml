@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Scheduled calls and Quick Settings tiles. -->
+<resources>
+    <!-- Scheduled calls (ui/reminders/ScheduledCallUi.kt, service/ScheduledCallNotifier.kt) -->
+    <string name="scheduled_call_schedule">कॉल शेड्यूल करें</string>
+    <string name="scheduled_call_day">दिन</string>
+    <string name="scheduled_call_today">आज</string>
+    <string name="scheduled_call_tomorrow">कल</string>
+    <string name="scheduled_call_other_date">दूसरी तारीख</string>
+    <string name="scheduled_call_time">समय</string>
+    <string name="scheduled_call_repeat">दोहराएँ</string>
+    <string name="scheduled_repeat_once">एक बार</string>
+    <string name="scheduled_repeat_daily">रोज़</string>
+    <string name="scheduled_repeat_weekly">हर हफ़्ते</string>
+    <string name="scheduled_repeat_daily_summary">हर दिन, %1$s</string>
+    <string name="scheduled_repeat_weekly_summary">हर %1$s, %2$s</string>
+    <string name="scheduled_call_save">शेड्यूल करें</string>
+    <string name="scheduled_call_update">सेव करें</string>
+    <string name="scheduled_call_set_for">कॉल %1$s के लिए शेड्यूल हुई</string>
+    <string name="scheduled_call_cancel">शेड्यूल की गई कॉल रद्द करें</string>
+    <string name="scheduled_calls_channel">शेड्यूल की गई कॉल</string>
+    <string name="scheduled_call_title">%1$s को कॉल करने का समय</string>
+    <string name="scheduled_call_alert_heading">कॉल करने का समय</string>
+    <string name="scheduled_call_due">%1$s के लिए शेड्यूल</string>
+    <string name="scheduled_call_snooze">10 मिनट बाद</string>
+    <string name="scheduled_call_dismiss">खारिज करें</string>
+    <string name="scheduled_full_screen">फ़ुल-स्क्रीन अलर्ट</string>
+    <string name="scheduled_full_screen_summary">शेड्यूल की गई कॉल अलार्म की तरह पूरी स्क्रीन पर दिखती है, फ़ोन लॉक होने पर भी</string>
+    <string name="scheduled_full_screen_blocked">इस ऐप के लिए फ़ुल-स्क्रीन अलर्ट बंद हैं। सिस्टम सेटिंग में इन्हें अनुमति दें।</string>
+    <string name="reminders_scheduled_section">शेड्यूल की गई कॉल</string>
+    <string name="reminders_callback_section">कॉल बैक रिमाइंडर</string>
+    <!-- Quick Settings tiles (service/tiles/QuickSettingsTiles.kt, ui/settings/QuickTilesSettings.kt) -->
+    <string name="tile_quiet_hours">शांत समय</string>
+    <string name="tile_call_favourite">पसंदीदा को कॉल</string>
+    <string name="tile_last_caller">पिछला कॉलर</string>
+    <string name="tile_quiet_schedule">%1$s–%2$s</string>
+    <string name="tile_quiet_follows_dnd">परेशान न करें के साथ</string>
+    <string name="tile_locked">कॉल के लिए अनलॉक करें</string>
+    <string name="tile_no_favourite">अभी कोई पसंदीदा नहीं</string>
+    <string name="tile_no_calls">अभी कोई कॉल नहीं</string>
+    <string name="tile_needs_contacts">संपर्कों की अनुमति दें</string>
+    <string name="tile_needs_call_log">कॉल इतिहास की अनुमति दें</string>
+    <string name="tiles_title">क्विक सेटिंग टाइल</string>
+    <string name="tiles_summary">पसंदीदा को कॉल: %1$s</string>
+    <string name="tiles_help">दो बार नीचे स्वाइप करें, पेंसिल पर टैप करें और NoDialer की टाइल खींचकर लाएँ: शांत समय, पसंदीदा को कॉल और पिछला कॉलर।</string>
+    <string name="tiles_add">“%1$s” जोड़ें</string>
+    <string name="tiles_favourite_heading">पसंदीदा को कॉल किसे करे</string>
+    <string name="tiles_favourite_auto">पहला पसंदीदा</string>
+    <string name="tiles_favourite_auto_named">पहला पसंदीदा (%1$s)</string>
+    <string name="tiles_no_favourites">यहाँ चुनने के लिए किसी संपर्क को स्टार करें।</string>
+    <string name="tiles_already_added">यह टाइल पहले से क्विक सेटिंग में है</string>
+    <string name="tiles_add_failed">टाइल नहीं जुड़ी। क्विक सेटिंग एडिटर से जोड़ें।</string>
+</resources>

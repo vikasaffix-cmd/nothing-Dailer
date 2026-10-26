@@ -8,10 +8,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.provider.ContactsContract
-import android.telecom.TelecomManager
-import android.telecom.VideoProfile
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +19,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.material.icons.filled.Alarm
+import androidx.compose.material.icons.filled.EditCalendar
+import com.example.allinonedailer.ui.reminders.ReminderPickerDialog
+import com.example.allinonedailer.ui.reminders.ScheduleCallHost
+import com.example.allinonedailer.ui.reminders.scheduleReminder
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
@@ -38,8 +42,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -66,9 +72,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -96,14 +104,20 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import com.example.allinonedailer.data.CallPlacer
 import com.example.allinonedailer.data.ContactItem
 import com.example.allinonedailer.data.ContactsRepository
+import com.example.allinonedailer.data.Haptics
 import com.example.allinonedailer.ui.components.CallerAvatar
 import com.example.allinonedailer.ui.components.DotMatrixText
+import com.example.allinonedailer.ui.components.PinSimRow
+import com.example.allinonedailer.ui.components.WhatsAppActionRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
+import com.example.allinonedailer.R
+import androidx.compose.ui.res.stringResource
 
 private val SheetPanel = Color(0xFF1E1F21)
 private val SheetPill = Color(0xFF2C2D30)
@@ -115,15 +129,35 @@ fun ContactsScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    var searchQuery by remember { mutableStateOf("") }
-    var favouritesOnly by remember { mutableStateOf(false) }
-    var contacts by remember { mutableStateOf<List<ContactItem>>(emptyList()) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var favouritesOnly by rememberSaveable { mutableStateOf(false) }
+    // The shared cache (filled by the keypad) shows the list on the first frame.
+    var contacts by remember { mutableStateOf(ContactsRepository.cached().orEmpty()) }
     var reloadKey by remember { mutableIntStateOf(0) }
-    var sheetContact by remember { mutableStateOf<ContactItem?>(null) }
+    // Saved by id so the long-press sheet stays open across rotation.
+    var sheetContactId by rememberSaveable { mutableStateOf<String?>(null) }
+    val sheetContact = sheetContactId?.let { id -> contacts.firstOrNull { it.id == id } }
+    // "Remind me to call" from the long-press sheet.
+    var remindContact by remember { mutableStateOf<ContactItem?>(null) }
+    remindContact?.let { c ->
+        ReminderPickerDialog(
+            title = c.name,
+            subtitle = c.phoneNumber,
+            onDismiss = { remindContact = null },
+            onPick = { at ->
+                remindContact = null
+                scheduleReminder(context, c.phoneNumber, c.name, at)
+            }
+        )
+    }
+    // "Schedule call" from the long-press sheet.
+    var scheduleContact by remember { mutableStateOf<ContactItem?>(null) }
+    scheduleContact?.let { c -> ScheduleCallHost(c.phoneNumber, c.name) { scheduleContact = null } }
     // While the long-press popup is open everything but the pressed row dims.
     val dim = if (sheetContact != null) 0.15f else 1f
 
-    // Reload on every resume so edits made in the system editor show up.
+    // Reload on every resume so edits made in the system editor show up
+    // (instant when nothing changed: the cache drops itself on any change).
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { reloadKey++ }
     LaunchedEffect(reloadKey) {
         if (reloadKey == 0) return@LaunchedEffect
@@ -136,7 +170,7 @@ fun ContactsScreen(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) pendingWrite?.invoke()
-        else Toast.makeText(context, "Contacts permission needed", Toast.LENGTH_SHORT).show()
+        else Toast.makeText(context, R.string.contacts_permission_needed, Toast.LENGTH_SHORT).show()
         pendingWrite = null
     }
     fun withWriteAccess(action: () -> Unit) {
@@ -156,15 +190,20 @@ fun ContactsScreen(
         }
     }
 
-    val list = remember(contacts, searchQuery, favouritesOnly) {
-        buildContactList(contacts, searchQuery, favouritesOnly)
+    // Filtering and grouping 9,000+ contacts runs off the main thread on each
+    // keystroke; only the very first list is built in place.
+    val list by produceState(
+        initialValue = remember { buildContactList(contacts, searchQuery, favouritesOnly) },
+        contacts, searchQuery, favouritesOnly
+    ) {
+        value = withContext(Dispatchers.Default) { buildContactList(contacts, searchQuery, favouritesOnly) }
     }
     val listState = rememberLazyListState()
     val currentSection by remember(list) {
         derivedStateOf { list.sectionOfRow.getOrNull(listState.firstVisibleItemIndex) ?: 0 }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    val headerPane: @Composable () -> Unit = {
         // Top bar: back to keypad, profile/settings badge
         Row(
             modifier = Modifier
@@ -176,7 +215,7 @@ fun ContactsScreen(
             IconButton(onClick = onBack) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(R.string.back),
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -192,7 +231,7 @@ fun ContactsScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Settings",
+                    contentDescription = stringResource(R.string.settings),
                     tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.size(22.dp)
                 )
@@ -212,7 +251,7 @@ fun ContactsScreen(
                 .alpha(dim)
                 .padding(horizontal = 16.dp)
         ) {
-            DotMatrixText(text = "CONTACTS", pitch = 4.dp)
+            DotMatrixText(text = stringResource(R.string.contacts_title), pitch = 4.dp)
             Spacer(modifier = Modifier.height(14.dp))
 
             // Search + add
@@ -220,7 +259,7 @@ fun ContactsScreen(
                 TextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("SEARCH", letterSpacing = 1.sp, fontSize = 13.sp) },
+                    placeholder = { Text(stringResource(R.string.search).uppercase(), letterSpacing = 1.sp, fontSize = 13.sp) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                     singleLine = true,
                     shape = RoundedCornerShape(50),
@@ -243,7 +282,7 @@ fun ContactsScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Add contact",
+                        contentDescription = stringResource(R.string.add_contact),
                         tint = MaterialTheme.colorScheme.onTertiary
                     )
                 }
@@ -256,16 +295,19 @@ fun ContactsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Chip(
-                    text = "☆ FAVOURITE",
+                    text = "☆ " + stringResource(R.string.contacts_favourite_filter).uppercase(),
                     selected = favouritesOnly,
                     onClick = { favouritesOnly = !favouritesOnly }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Chip(text = "TOTAL: ${list.contactCount}", selected = false, onClick = null)
+                Chip(text = stringResource(R.string.contacts_total, list.contactCount).uppercase(), selected = false, onClick = null)
             }
             Spacer(modifier = Modifier.height(4.dp))
         }
 
+    }
+
+    val listPane: @Composable () -> Unit = {
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 state = listState,
@@ -298,20 +340,22 @@ fun ContactsScreen(
                             ContactRow(
                                 contact = contact,
                                 onClick = { placeCall(context, contact.phoneNumber) },
-                                onLongClick = { sheetContact = contact },
+                                onLongClick = { sheetContactId = contact.id },
                                 highlighted = pressed,
                                 modifier = Modifier.alpha(if (pressed) 1f else dim)
                             ) {
                                 if (pressed) ContactActionPopup(
                                     contact = contact,
-                                    onDismiss = { sheetContact = null },
+                                    onDismiss = { sheetContactId = null },
                                     onCall = { placeCall(context, contact.phoneNumber) },
                                     onText = { sendText(context, contact.phoneNumber) },
                                     onVideoCall = { placeVideoCall(context, contact.phoneNumber) },
                                     onToggleFavourite = { toggleFavourite(contact) },
                                     onCopy = { copyNumber(context, contact.phoneNumber) },
                                     onShare = { shareContact(context, contact.id) },
-                                    onEdit = { editContact(context, contact.id) }
+                                    onEdit = { editContact(context, contact.id) },
+                                    onRemind = { remindContact = contact },
+                                    onSchedule = { scheduleContact = contact }
                                 )
                             }
                         }
@@ -333,6 +377,32 @@ fun ContactsScreen(
                         .padding(top = 8.dp, bottom = 16.dp, end = 6.dp)
                 )
             }
+        }
+    }
+
+    if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        // Sideways: title, search and filters in a side column so the list keeps the full height.
+        Row(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .width(300.dp)
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                headerPane()
+            }
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                listPane()
+            }
+        }
+    } else {
+        Column(modifier = Modifier.fillMaxSize()) {
+            headerPane()
+            listPane()
         }
     }
 }
@@ -449,7 +519,7 @@ private fun ContactRow(
             if (contact.starred) {
                 Icon(
                     imageVector = Icons.Default.Star,
-                    contentDescription = "Favourite",
+                    contentDescription = stringResource(R.string.favourite),
                     tint = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.size(14.dp)
                 )
@@ -477,6 +547,7 @@ private fun FastScroller(
     var touchY by remember { mutableFloatStateOf(0f) }
     var selected by remember { mutableIntStateOf(-1) }
     val density = LocalDensity.current
+    val context = LocalContext.current
 
     // The gesture handler outlives list reloads, so it reads the latest sections.
     val currentSections by rememberUpdatedState(sections)
@@ -488,6 +559,8 @@ private fun FastScroller(
         touchY = y.coerceIn(0f, railHeight.toFloat())
         val index = ((touchY / railHeight) * count).toInt().coerceIn(0, count - 1)
         if (index != selected) {
+            // A tick per new letter as the finger moves along the rail.
+            Haptics.play(context, Haptics.Effect.TICK)
             selected = index
             currentOnSelected(index)
         }
@@ -578,7 +651,9 @@ private class BelowAnchorPosition(private val topInsetPx: Int) : PopupPositionPr
         layoutDirection: LayoutDirection,
         popupContentSize: IntSize
     ): IntOffset {
-        val x = (windowSize.width - popupContentSize.width) / 2
+        // Centred on the row, kept on screen (the list is the right pane in landscape).
+        val x = (anchorBounds.center.x - popupContentSize.width / 2)
+            .coerceIn(0, (windowSize.width - popupContentSize.width).coerceAtLeast(0))
         val below = anchorBounds.bottom
         val y = if (below + popupContentSize.height <= windowSize.height) below
         else (anchorBounds.top - popupContentSize.height).coerceAtLeast(topInsetPx)
@@ -601,7 +676,9 @@ private fun ContactActionPopup(
     onToggleFavourite: () -> Unit,
     onCopy: () -> Unit,
     onShare: () -> Unit,
-    onEdit: () -> Unit
+    onEdit: () -> Unit,
+    onRemind: () -> Unit = {},
+    onSchedule: () -> Unit = {}
 ) {
     // Every action closes the popup first.
     fun act(action: () -> Unit): () -> Unit = { onDismiss(); action() }
@@ -615,7 +692,7 @@ private fun ContactActionPopup(
     ) {
         Column(
             modifier = Modifier
-                .width(screenWidth - 32.dp)
+                .width(minOf(screenWidth - 32.dp, 480.dp))
                 .padding(top = 6.dp)
                 .clip(RoundedCornerShape(32.dp))
                 .background(SheetPanel)
@@ -623,19 +700,49 @@ private fun ContactActionPopup(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                SheetPillButton(Icons.Default.Call, "Call", act(onCall), Modifier.weight(1f))
-                SheetPillButton(Icons.AutoMirrored.Filled.Message, "Text", act(onText), Modifier.weight(1f))
+                SheetPillButton(Icons.Default.Call, stringResource(R.string.call), act(onCall), Modifier.weight(1f))
+                SheetPillButton(Icons.AutoMirrored.Filled.Message, stringResource(R.string.text_message), act(onText), Modifier.weight(1f))
             }
             Spacer(modifier = Modifier.height(10.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                SheetPillButton(Icons.Default.Videocam, "Video call", act(onVideoCall), Modifier.weight(1f))
+                SheetPillButton(Icons.Default.Videocam, stringResource(R.string.video_call), act(onVideoCall), Modifier.weight(1f))
                 SheetPillButton(
                     Icons.Default.Star,
-                    if (contact.starred) "Remove from fav." else "Add to fav.",
+                    stringResource(if (contact.starred) R.string.remove_from_favourites else R.string.add_to_favourites),
                     act(onToggleFavourite),
                     Modifier.weight(1f)
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            SheetPillButton(
+                Icons.Default.Alarm,
+                stringResource(R.string.reminder_remind_to_call),
+                act(onRemind),
+                Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            SheetPillButton(
+                Icons.Default.EditCalendar,
+                stringResource(R.string.scheduled_call_schedule),
+                act(onSchedule),
+                Modifier.fillMaxWidth()
+            )
+            // WhatsApp chat / voice / video from its synced rows (nothing if not installed).
+            WhatsAppActionRow(
+                number = contact.phoneNumber,
+                contactId = contact.id,
+                pillColor = SheetPill,
+                onAction = onDismiss,
+                modifier = Modifier.fillMaxWidth().padding(top = 14.dp)
+            )
+            // Smart SIM pin: Auto / Jio / Airtel (dual-SIM phones only).
+            PinSimRow(
+                name = contact.name,
+                numbers = listOf(contact.phoneNumber),
+                modifier = Modifier.fillMaxWidth().padding(top = 14.dp)
+            )
+            // Glyph ringing pattern for this person (Nothing phones with Glyph lights on).
+            com.example.allinonedailer.ui.settings.GlyphContactPatternRow(contact.phoneNumber, SheetPill, Modifier.fillMaxWidth().padding(top = 14.dp))
             Spacer(modifier = Modifier.height(18.dp))
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
@@ -643,21 +750,21 @@ private fun ContactActionPopup(
             ) {
                 SheetRoundButton(
                     icon = Icons.Default.ContentCopy,
-                    label = "Copy number",
+                    label = stringResource(R.string.copy_number),
                     background = MaterialTheme.colorScheme.tertiary,
                     tint = Color.White,
                     onClick = act(onCopy)
                 )
                 SheetRoundButton(
                     icon = Icons.Default.Share,
-                    label = "Share",
+                    label = stringResource(R.string.share),
                     background = Color.White,
                     tint = Color.Black,
                     onClick = act(onShare)
                 )
                 SheetRoundButton(
                     icon = Icons.Default.Edit,
-                    label = "Edit",
+                    label = stringResource(R.string.edit),
                     background = Color.Transparent,
                     tint = Color.White,
                     outlined = true,
@@ -719,19 +826,17 @@ private fun startSafely(context: Context, intent: Intent) {
         context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     } catch (e: Exception) {
         e.printStackTrace()
-        Toast.makeText(context, "No app can handle this", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.no_app_can_handle, Toast.LENGTH_SHORT).show()
     }
 }
 
-private fun placeCall(context: Context, number: String) {
-    startSafely(context, Intent(Intent.ACTION_CALL, Uri.fromParts("tel", number, null)))
+private fun placeCall(context: Context, number: String, video: Boolean = false) {
+    if (CallPlacer.placeCall(context, number, video) == CallPlacer.Outcome.FAILED) {
+        Toast.makeText(context, R.string.no_app_can_handle, Toast.LENGTH_SHORT).show()
+    }
 }
 
-private fun placeVideoCall(context: Context, number: String) {
-    startSafely(context, Intent(Intent.ACTION_CALL, Uri.fromParts("tel", number, null)).apply {
-        putExtra(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, VideoProfile.STATE_BIDIRECTIONAL)
-    })
-}
+private fun placeVideoCall(context: Context, number: String) = placeCall(context, number, video = true)
 
 private fun sendText(context: Context, number: String) {
     startSafely(context, Intent(Intent.ACTION_SENDTO, Uri.fromParts("smsto", number, null)))
@@ -750,8 +855,8 @@ private fun setStarred(context: Context, id: String, starred: Boolean): Boolean 
 
 private fun copyNumber(context: Context, number: String) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    clipboard.setPrimaryClip(ClipData.newPlainText("Phone number", number))
-    Toast.makeText(context, "Number copied", Toast.LENGTH_SHORT).show()
+    clipboard.setPrimaryClip(ClipData.newPlainText(context.getString(R.string.phone_number), number))
+    Toast.makeText(context, R.string.number_copied, Toast.LENGTH_SHORT).show()
 }
 
 private fun shareContact(context: Context, id: String) {
@@ -768,7 +873,7 @@ private fun shareContact(context: Context, id: String) {
         putExtra(Intent.EXTRA_STREAM, vcard)
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    startSafely(context, Intent.createChooser(send, "Share contact"))
+    startSafely(context, Intent.createChooser(send, context.getString(R.string.share_contact)))
 }
 
 private fun editContact(context: Context, id: String) {
